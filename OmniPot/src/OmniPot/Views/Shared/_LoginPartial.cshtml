@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using OmniPot.Data.Identity
+
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="dropdown navbar-user">
+        <div class="image">
+            <img src="~/assets/img/user_profile.jpg" alt="" />
+        </div>
+        <div class="info">
+            <div class="name dropdown">
+                <a href="javascript:;" data-toggle="dropdown">@User.Identity.Name <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">Change Password</a></li>
+                    <li class="divider"></li>
+                    <li><a asp-controller="Account" asp-action="LogOFf">Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a asp-controller="Account" asp-action="Register">
+                Register
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Account" asp-action="Login">
+                Log in
+            </a>
+        </li>
+    </ul>
+}

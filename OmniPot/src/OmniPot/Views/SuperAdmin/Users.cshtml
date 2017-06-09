@@ -1,0 +1,44 @@
+﻿@(
+Html.Kendo().Grid<OmniPot.Data.Identity.ApplicationUser>()
+       .Name("users")
+       .Columns(c =>
+       {
+           c.Bound("UserName").Title("Name");
+           c.Bound("Email").Title("Email");
+           c.Bound("PhoneNumber").Title("Phone");
+           c.Command(command => { command.Edit(); command.Destroy(); }).Width(172);
+
+       })
+       .ToolBar(t => t.Create())
+       .Editable(editable => editable.Mode(GridEditMode.PopUp))
+       .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+                model.Field(p => p.Id).Editable(false);
+            })
+            .Events(e => e.Error("error_handler").Change("grid_change"))
+            .Read(read => read.Url("/api/Users/GetList").Type(HttpVerbs.Get))
+            .Create(create => create.Url("/api/Users").Type(HttpVerbs.Post))
+            .Update(update => update.Url("/api/Users").Type(HttpVerbs.Put))
+            .Destroy(destroy => destroy.Url("/api/Users").Type(HttpVerbs.Delete))
+        )
+
+)
+
+<script>
+
+function error_handler(e) {
+    var errors = $.parseJSON(e.xhr.responseText);
+
+    if (errors) {
+        alert("Errors:\n" + errors.join("\n"));
+    }
+}
+
+function grid_change(e) {
+    console.log(e);
+
+}
+</script>

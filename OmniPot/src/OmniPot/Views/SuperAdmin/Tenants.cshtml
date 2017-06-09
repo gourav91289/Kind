@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "Tenants";
+    ViewData["PageDescription"] = "Here Tenants may be Created, Updated and Deleted.";
+}
+
+@model OmniPot.Data.Models.Tenant
+
+<div>
+    <button id="OmniPotCommon_TEST_BUTTON" class="smallYellowButton">OmniPotCommon TEST</button>
+</div>
+
+
+<h1>Tenants</h1>
+
+@(Html.Kendo().Grid<OmniPot.Data.Models.Tenant>()
+    .Name("grid")
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .ToolBar(t => {
+        t.Custom().Text("Add").HtmlAttributes(new { id = "customAdd" });
+        t.Custom().Text("Show Deleted").HtmlAttributes(new { id = "toggleDeleted" });
+    })
+    .Events(e => {
+        e.DataBound("OP_styleGridRows");
+    })
+
+    .Columns(columns => {
+        columns.Bound("DisplayName").Title("Name");
+        columns.Bound("RouteName").Title("Route");
+        columns.Bound("CreatedUtc").Title("Created");
+        columns.Command(command => {
+            command.Custom("Update").Click("OP_preUpdate").HtmlAttributes(new { id = "updateButton" });
+            command.Custom("Delete").Click("OP_deleteEntity").HtmlAttributes(new { id = "deleteButton" });
+            command.Custom("Undelete").Click("OP_undelete").HtmlAttributes(new { id = "undeleteButton" });
+            command.Custom("Hard Delete").Click("OP_hardDelete");
+        }).Width(258);
+    })
+
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Type("aspnetmvc-ajax")
+        .PageSize(10)
+        .ServerPaging(true)
+        .ServerSorting(true)
+        .ServerFiltering(false)
+        .Sort(sort => sort.Add("DisplayName").Ascending()) // <-- initial sort expression
+        .Events(e => e.Error("error_handler"))
+    )  @*end DataSource*@
+)
+
+@*============================================================*@
+
+
+<script>
+
+    //=============================================================================
+    $(document).ready(function () {
+        OP_consoleLog("\n\n================== Tenants READY === jQuery.fn.jquery =>%o<=", jQuery.fn.jquery);
+
+        var viewFormArguments = {};
+
+        viewFormArguments["EntityName"] = "Tenant"; //EntityName
+        viewFormArguments["CreateURL"] = "http://localhost:5000/api/Tenants/TenantCreate"; //CreateURL
+        viewFormArguments["ReadURL"] = "http://localhost:5000/api/Tenants/TenantRead"; //ReadURL
+        viewFormArguments["ReadDeleteURL"] = "http://localhost:5000/api/Tenants/TenantReadDeleted"; //ReadDeleteURL
+        viewFormArguments["UpdateURL"] = "http://localhost:5000/api/Tenants/TenantUpdate"; //UpdateURL
+        viewFormArguments["DeleteURL"] = "http://localhost:5000/api/Tenants/TenantDelete"; //DeleteURL
+        viewFormArguments["HardDeleteURL"] = "http://localhost:5000/api/Tenants/TenantHardDelete"; //HardDeleteURL
+        viewFormArguments["UndeleteURL"] = "http://localhost:5000/api/Tenants/TenantUndelete"; //UndeleteURL
+
+        var viewFormFields = {};
+
+        var fieldIndex = 0;
+        var fieldObject = {};
+        fieldObject["label"] = "Display Name";
+        fieldObject["inputType"] = "text";
+        fieldObject["id"] = "FO_DisplayName";
+        fieldObject["dataField"] = "DisplayName";
+        viewFormFields["" + fieldIndex + ""] = fieldObject;
+
+        fieldIndex++;
+        fieldObject = {};
+        fieldObject["label"] = "Route Name";
+        fieldObject["inputType"] = "text";
+        fieldObject["id"] = "FO_RouteName";
+        fieldObject["dataField"] = "RouteName";
+        viewFormFields["" + fieldIndex + ""] = fieldObject;
+
+        fieldIndex++;
+        fieldObject = {};
+        fieldObject["inputType"] = "address";
+        viewFormFields["" + fieldIndex + ""] = fieldObject;
+        viewFormArguments["fieldListSize"] = ++fieldIndex;
+
+        OP_EntitySetup(viewFormArguments, viewFormFields);
+
+        $("#customAdd").click(function (e) {
+            //O/P_consoleLog("\n\n================== ready customAdd(e=>%o<=) RAN  ==================\n\n", e);
+            //customAdd(e);
+            OP_preCreate(e);
+        });
+
+        $("#toggleDeleted").click(function (e) {
+            //O/P_consoleLog("\n\n================== ready toggleDeleted(e=>%o<=) RAN  ==================\n\n", e);
+            OP_toggleDeleted(e);
+        });
+
+        OP_refreshGridData();
+
+    });
+
+
+    //=============================================================================
+    function error_handler(e) {
+        OP_consoleError("\n\n================== error_handler(e=>%o<=) ran ==================\n\n", e);
+        var errors = $.parseJSON(e.xhr.responseText);
+
+        if (errors) {
+            alert("Errors:\n" + errors.join("\n"));
+        }
+    }
+
+</script>

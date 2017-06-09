@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="~/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.min.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="~/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
+    <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <script src="https://kendo.cdn.telerik.com/2016.2.607/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.607/js/kendo.aspnetmvc.min.js"></script>
+    <!-- ================== BEGIN BASE JS ================== -->
+    @*<script src="~/assets/plugins/pace/pace.min.js"></script>*@
+    <!-- ================== END BASE JS ================== -->
+    <!--[if lt IE 9]>
+        <script src="~/assets/crossbrowserjs/excanvas.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.rtl.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.default.min.css" />
+
+
+    @{
+        // Include the JavaScript for the current culture
+        var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+    }
+
+    <script src="@("https://kendo.cdn.telerik.com/2016.2.607/js/cultures/kendo.culture." + culture + ".min.js")"></script>
+
+    <script>
+		@* Set the current culture *@
+        kendo.culture("@culture");
+    </script>
+
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

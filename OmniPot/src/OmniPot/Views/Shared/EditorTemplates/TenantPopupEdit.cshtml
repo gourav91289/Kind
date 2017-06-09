@@ -1,0 +1,70 @@
+﻿@*
+    TennantsPopupEdit.cshtml 
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model OmniPot.Data.Models.Tenant
+
+    <h3>Customized Tenant edit template -- Shared/EditorTemplates/TenantPopupEdit</h3>
+    <br />
+    @Html.HiddenFor(model => model.TenantId)
+
+    <div>
+        @Html.LabelFor(model => model.DisplayName, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.DisplayName)
+        @Html.ValidationMessageFor(model => model.DisplayName)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.RouteName, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.RouteName)
+        @Html.ValidationMessageFor(model => model.RouteName)
+    </div>
+
+
+@*@Html.Partial("_Address")*@ <!-- This works -- but no data passed to partial -->
+
+@*@Html.Partial("_Address", Model)*@ <!-- This works -- but passing a Tenet object instead of just an Address object defeats purpose of a partial view data passed to partial -->
+
+@*@Html.Partial("_Address", Model.Address )*@ <!-- This doesn't work -- no error, just doesn't render -->
+
+@*@{var thisAddress = Model.Address; }
+@Html.Partial("_Address", thisAddress)*@
+
+
+<div>  @*style="background-color:lightyellow;"*@
+    @Html.LabelFor(model => model.Address.Addressee, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.Addressee)
+    @Html.ValidationMessageFor(model => model.Address.Addressee)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.Address.DeliveryLine1, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.DeliveryLine1)
+    @Html.ValidationMessageFor(model => model.Address.DeliveryLine1)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.Address.DeliveryLine2, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.DeliveryLine2)
+    @Html.ValidationMessageFor(model => model.Address.DeliveryLine2)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.Address.CityName, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.CityName)
+    @Html.ValidationMessageFor(model => model.Address.CityName)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.Address.StateOrProvince.DisplayName, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.StateOrProvince.DisplayName)
+    @Html.ValidationMessageFor(model => model.Address.StateOrProvince.DisplayName)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.Address.PostalCode, new { @style = "display:inline-block" })
+    @Html.EditorFor(model => model.Address.PostalCode)
+    @Html.ValidationMessageFor(model => model.Address.PostalCode)
+</div>
+

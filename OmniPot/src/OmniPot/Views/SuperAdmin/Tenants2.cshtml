@@ -1,0 +1,235 @@
+﻿@*
+    Temamt2,cshtml - Paul's try at tenants based upon Telerik's custom pop-up editor sample
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    <hr/>
+    <h1>Hello from the Tenants2.cshtml page</h1>
+    <hr/>
+    <h2> Aren't you amazed you are seeing something? </h2>
+    <hr />
+}
+
+@{
+    ViewBag.Title = "Tenants2 Page";
+}
+
+ 
+
+@*@(Html.Kendo().Grid<OmniPot.Data.Models.Tenant>()
+    .Name("tenants2")
+    .Pageable()
+    .Sortable()
+    .Editable(ed => ed.Mode(GridEditMode.PopUp).TemplateName("TenantPopupEdit"))
+    .ToolBar(t => t.Create())
+
+    .Columns(columns => {
+        columns.Bound("DisplayName").Title("Name");
+        columns.Bound("RouteName").Title("Route");
+        columns.Bound("CreatedUtc").Title("Created");
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(172);
+    })
+
+    .DataSource(dataSource => dataSource
+        .Ajax()
+
+        //.Model(model => model.Id(m => m.TenantId))
+        .Model(model => {
+            model.Id(p => p.TenantId);
+            model.Field(p => p.TenantId).Editable(false);
+        })
+
+
+
+        //.Read(read => read.Url("/api/Tenants2/GetTenantsList").Type(HttpVerbs.Get))
+        .Read(read => read.Action("GetTenantsList2", "Tenants2").Type(HttpVerbs.Get))
+
+    //.Create(create => create.Url("api/Tenants").Type(HttpVerbs.Post)) // This did not even open an edtor
+    //.Create(create => create.Url("/api/Tenants/CreateTenant").Type(HttpVerbs.Post))
+    //.Create(up => up.Action("PostTenant", "Tenants").Type(HttpVerbs.Post))
+    //.Create(up => up.Action("CreateTenant", "Tenants").Type(HttpVerbs.Post)) // This failed to work, even with a method anotated with "[HttpPost()]"
+
+
+    //.Update(update => update.Url("/api/Tenants2").Type(HttpVerbs.Put))
+    //.Update(up => up.Action("PutTenant", "Tenants2").Type(HttpVerbs.Put))
+    )
+
+)
+
+
+
+<hr/><hr/>*@
+
+@*============================================================*@
+@(Html.Kendo().Grid<OmniPot.Data.Models.Tenant>()
+    .Name("grid")
+    .Pageable()
+    .Sortable()
+    .Editable(ed => ed.Mode(GridEditMode.PopUp).TemplateName("TenantPopupEdit"))
+    //.Editable(editable => editable.Mode(GridEditMode.InLine))
+    .ToolBar(t => t.Create())
+
+    .Columns(columns => {
+        columns.Bound("DisplayName").Title("Name");
+        columns.Bound("RouteName").Title("Route");
+        columns.Bound("CreatedUtc").Title("Created");
+        columns.Bound("TenantId").Title("TenantId");
+        //columns.Bound("Address.Addressee").Title("Address.Addressee");
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(172);
+    })
+
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Type("aspnetmvc-ajax")
+        .PageSize(10)
+        .ServerPaging(true)
+        .ServerSorting(true)
+        .ServerFiltering(true)
+        .Transport(transport => transport
+            //.Read(read => read.Action("Read", "Home"))
+            //.Read(read => read.Url("/api/Tenants2/GetTenantsList").Type(HttpVerbs.Get))
+            .Read(read => read.Action("TenantRead2", "Tenants2").Type(HttpVerbs.Get))
+
+            //.Create(create => create.Url("/api/Tenants/PostTenant2").Type(HttpVerbs.Post))
+            //.Create(update => update.Action("EditingPopup_Create", "Grid"))  //not found ( of corse, no GridController,,,
+            //.Create(update => update.Action("EditingPopup_Create", "Tenants2"))  //500 error
+            //.Create(update => update.Action("EditingPopup_Create", "Tenants2").Type(HttpVerbs.Get))  // sorta works if I hard code an address
+            .Create(create => create.Action("TenantCreate2", "Tenants2").Type(HttpVerbs.Post))  // sorta works if I hard code an address
+
+            //.Update(up => up.Action("PutTenant2", "Tenants2").Type(HttpVerbs.Put))
+            .Update(update => update.Action("TenantUpdate2", "Tenants2").Type(HttpVerbs.Put))
+
+            //.Destroy(up => up.Action("DeleteTenant2", "Tenants2").Type(HttpVerbs.Delete))
+            .Destroy(destroy => destroy.Action("TenantDelete2", "Tenants2").Type(HttpVerbs.Delete))
+        )
+
+        .Schema(schema => schema
+            .Data("Data")
+            .Total("Total")
+            .Errors("Errors")
+
+            @*.Parse(@<text>function (data) {
+            // configure a parse function only if the response (data) must be
+            // transformed in some way before data binding
+            return data;
+            }</text>)*@
+
+            .Model(model => {
+                model.Id("TenantId" );
+                model.Field("TenantId", typeof(Guid)).DefaultValue(Guid.Empty);
+                model.Field("DisplayName", typeof(string));
+                model.Field("RouteName", typeof(string));
+                model.Field("CreatedUtc", typeof(DateTime));
+
+                model.Field("Addressee", typeof(string));
+                model.Field("DeliveryLine1", typeof(string));
+                model.Field("DeliveryLine2", typeof(string));
+                model.Field("CityName", typeof(string));
+            })
+        )  @*end schema*@
+    )  @*end DataSource*@
+)
+@*============================================================*@
+
+
+
+<hr />
+<h1>Values</h1>
+<p>Id: <input type="text" id="id" /></p>
+<p>Value: <input type="text" id="value" /></p>
+<p>
+    <input type="button" id="getAll" value="Get All" />
+    <input type="button" id="getOne" value="Get One" />
+    <input type="button" id="post" value="Add" />
+    <input type="button" id="put" value="Update" />
+    <input type="button" id="delete" value="Delete" />
+    <input type="button" id="test" value="Test" />
+</p>
+<div id='result'></div>
+<hr />
+
+@*============================================================*@
+
+
+
+
+
+
+
+<script>
+
+    function error_handler(e) {
+        var errors = $.parseJSON(e.xhr.responseText);
+
+        if (errors) {
+            alert("Errors:\n" + errors.join("\n"));
+        }
+    }
+
+    function grid_change(e) {
+        console.log("\n\n grid_change e =>%o<=\n\n", e);
+
+    }
+
+    //=========================================================================
+    $("#test").click(function () {
+        console.log("\n\n==================  'Test' clicked! =======");
+    });
+
+    //=========================================================================
+    $("#getAll").click(function () {
+        console.log("\n\n==================  'Get All' clicked! =======");
+
+        var apiUrl = "http://localhost:5000/api/Tenants2/GetTenantsList";
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        $.ajax({
+            url: apiUrl,
+            type: "GET",
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                var text = "";
+                for (var i = 0; i < result.Data.length; i++) {
+                    if (i > 0) text = text + ", ";
+                    text = text + JSON.stringify(result.Data[i]);
+                }
+                console.log("* AJAX success : text =>%o<=", test);
+                $("#result").text(text);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+
+    //=========================================================================
+    $("#post").click(function () {
+        console.log("\n\n==================  'Post (Add GET Hack)' clicked! =======");
+
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Post";// + "?" + $("#id").val();
+        var apiUrl = "http://localhost:5000/api/Tenants2/EditingPopup_Create";
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        var data = "\"" + $("#value").val() + "\"";
+        $.ajax({
+            url: apiUrl, //valuesAddress,
+            type: "GET",
+            contentType: "application/json",
+            data: data,
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                $("#result").text(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+
+    });
+</script>
+
+

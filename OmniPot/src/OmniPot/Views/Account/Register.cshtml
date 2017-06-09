@@ -1,0 +1,61 @@
+﻿@model RegisterViewModel
+
+
+@*@{ String EnsureRenderedBodyOwrSections = new String("EnsureRenderedBodyOrSections");
+    @IgnoreSection(EnsureRenderedBodyOrSections)
+}*@
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
+<div class="register">
+    <!-- begin register-brand -->
+    <div class="register-brand bg-inverse text-white">
+        <img src="~/assets/img/agrisoft-logo-transparent.png" height="36" class="pull-right" alt="" /> Registration Form
+    </div>
+    <!-- end register-brand -->
+    <!-- begin register-content -->
+    <div class="register-content">
+        <h4 class="m-t-0 m-b-5">Great to see you here!</h4>
+        <p class="m-b-20">Create your account. Account activation may be required.</p>
+
+        <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="text" asp-for="Email" class="form-control input-lg" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" asp-for="Phone" class="form-control input-lg" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" class="form-control input-lg" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="ConfirmPassword" class="form-control input-lg" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="row m-b-15">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-lime btn-lg btn-block">Register</button>
+                </div>
+            </div>
+            <div class="text-center">
+                Already a member? <a asp-action="Login" class="text-muted">Login with your account</a>
+            </div>
+        </form>
+    </div>
+    <!-- end register-content -->
+</div>
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

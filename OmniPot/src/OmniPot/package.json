@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "name": "Kind",
+  "author": "Gourav Gupta",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "lite": "lite-server",
+    "postinstall": "typings install && gulp default",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
+  },
+  "dependencies": {
+    "@angular/common": "2.0.2",
+    "@angular/compiler": "2.0.2",
+    "@angular/core": "2.0.2",
+    "@angular/forms": "2.0.2",
+    "@angular/http": "2.0.2",
+    "@angular/platform-browser": "2.0.2",
+    "@angular/platform-browser-dynamic": "2.0.2",
+    "@angular/router": "3.0.2",
+    "@angular/upgrade": "2.0.2",
+    "angular-in-memory-web-api": "0.1.5",
+    "bootstrap": "3.3.7",
+    "core-js": "2.4.1",
+    "reflect-metadata": "0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "systemjs": "0.19.39",
+    "typings": "1.4.0",
+    "zone.js": "0.6.25",
+    "moment": "^2.14.1"
+  },
+  "devDependencies": {
+    "concurrently": "3.0.0",
+    "gulp": "^3.9.1",
+    "lite-server": "2.2.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "0.1.7",
+    "gulp-js-minify": "0.0.3",
+    "gulp-less": "^3.1.0",
+    "gulp-minify-html": "1.0.6",
+    "gulp-rimraf": "^0.2.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.13.6",
+    "gulp-uglify": "^2.0.0",
+    "typescript": "2.0.3"
+
+  }
+}

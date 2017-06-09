@@ -1,0 +1,123 @@
+﻿
+<!-- begin navbar-right -->
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <form class="navbar-form form-input-flat">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="@Localizer["Enter Keyword..."]" />
+                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+    </li>
+    <li class="dropdown">
+        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle has-notify" data-click="toggle-notify">
+            <i class="fa fa-bell"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-notification pull-right">
+            <li class="dropdown-header">Notifications (5)</li>
+            <li class="notification-item">
+                <a href="javascript:;">
+                    <div class="media"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="message">
+                        <h6 class="title">Server Error Reports</h6>
+                        <div class="time">3 minutes ago</div>
+                    </div>
+                    <div class="option" data-toggle="tooltip" data-title="Mark as Read" data-click="set-message-status" data-status="unread" data-container="body">
+                        <i class="fa fa-circle-o"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="notification-item">
+                <a href="javascript:;">
+                    <div class="media"><img src="~/assets/img/user_1.jpg" alt="" /></div>
+                    <div class="message">
+                        <h6 class="title">Solvia Smith</h6>
+                        <p class="desc">Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+                        <div class="time">25 minutes ago</div>
+                    </div>
+                    <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
+                        <i class="fa fa-circle-o"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="notification-item">
+                <a href="javascript:;">
+                    <div class="media"><img src="~/assets/img/user_2.jpg" alt="" /></div>
+                    <div class="message">
+                        <h6 class="title">Olivia</h6>
+                        <p class="desc">Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+                        <div class="time">35 minutes ago</div>
+                    </div>
+                    <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
+                        <i class="fa fa-circle-o"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="notification-item">
+                <a href="javascript:;">
+                    <div class="media"><i class="fa fa-user-plus media-object"></i></div>
+                    <div class="message">
+                        <h6 class="title"> New User Registered</h6>
+                        <div class="time">1 hour ago</div>
+                    </div>
+                    <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
+                        <i class="fa fa-circle-o"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="notification-item">
+                <a href="javascript:;">
+                    <div class="media bg-success"><i class="fa fa-credit-card"></i></div>
+                    <div class="message">
+                        <h6 class="title"> New Item Sold</h6>
+                        <div class="time">2 hour ago</div>
+                    </div>
+                    <div class="option read" data-toggle="tooltip" data-title="Mark as Read" data-click="set-message-status" data-status="read" data-container="body">
+                        <i class="fa fa-circle-o"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="dropdown-footer text-center">
+                <a href="javascript:;">View more</a>
+            </li>
+        </ul>
+    </li>
+
+    @await Html.PartialAsync("_SelectLanguagePartial")
+
+    <li class="dropdown navbar-user">
+        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="image"><img src="~/assets/img/user_profile.jpg" alt="" /></span>
+            <span class="hidden-xs">@User.Identity.Name</span> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu pull-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+            <li><a asp-controller="Manage" asp-action="ChangePassword">@Localizer["Change Password"]</a></li>
+            //Leaving these in for reference for when we want to add them back
+            @*<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+            <li><a href="javascript:;">Calendar</a></li>
+            <li><a href="javascript:;">Setting</a></li>*@
+            <li class="divider"></li>
+            <li><a asp-controller="Account" asp-action="LogOff">@Localizer["Log Out"]</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="Login">@Localizer["Log In"]</a></li>
+                
+                //Leaving these in for reference for when we want to add them back
+                @*<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+                    <li><a href="javascript:;">Calendar</a></li>
+                    <li><a href="javascript:;">Setting</a></li>*@
+                <li class="divider"></li>
+                <li><a asp-controller="Account" asp-action="Register">@Localizer["Create Account"]</a></li>
+            }
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:;" data-click="right-sidebar-toggled">
+            <i class="fa fa-align-left"></i>
+        </a>
+    </li>
+</ul>
+<!-- end navbar-right -->

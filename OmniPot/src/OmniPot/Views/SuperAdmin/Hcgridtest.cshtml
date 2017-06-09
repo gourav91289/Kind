@@ -1,0 +1,174 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <h1>Hcgridtest placeholder</h1>
+
+    <h1>Values</h1>
+    <p>Id: <input type="text" id="id" /></p>
+    <p>Value: <input type="text" id="value" /></p>
+    <p>
+        <input type="button" id="getAll" value="Get All" />
+        <input type="button" id="getOne" value="Get One" />
+        <input type="button" id="postAdd" value="Add" />
+        <input type="button" id="putUpdate" value="Update" />
+        <input type="button" id="delete" value="Delete" />
+        <input type="button" id="test" value="Test" />
+    </p>
+    <div id='result'></div>
+
+
+    <script type="text/javascript">
+
+        //var valuesAddress = "http://localhost:5000/api/Hcgridtest";//"http://localhost:5000/SuperAdmin/HCgridTest";//"http://localhost:3227/api/Values";
+        //   http://localhost:5000/api/Tenants/GetList   http://localhost:5000/api/Hcgridtest/Get   
+        var valuesAddress = "http://localhost:5000/api/Tenants2/";//http://localhost:5000/api/Tenants2/GetValues
+
+    //=========================================================================
+    $("#test").click(function () {
+        console.log("\n\n==================  'Test' clicked! =======");
+    });
+
+    //=========================================================================
+    $("#getAll").click(function () {
+        console.log("\n\n==================  'Get All' clicked! =======");
+
+        var apiUrl = "http://localhost:5000/api/HCGridTest/GetValues";
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        $.ajax({
+            url: apiUrl, //"http://localhost:5000/api/HCGridTest/GetValues",
+            type: "GET",
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                var text = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i > 0) text = text + ", ";
+                    text = text + result[i];
+                }
+                console.log("* AJAX success : text =>%o<=", test);
+                $("#result").text(text);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+    //=========================================================================
+    $("#getOne").click(function () {
+        console.log("\n\n==================  'Get One' clicked! =======");
+
+        var apiUrl = "http://localhost:5000/api/HCGridTest/GetOne" + "?id=" + $("#id").val();
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        //var id = "?" + $("#id").val();
+        $.ajax({
+            url: apiUrl, //"http://localhost:5000/api/HCGridTest/GetOne" + id, //valuesAddress + id,
+            type: "GET",
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                $("#result").text(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+
+    //=========================================================================
+    $("#postAdd").click(function () {
+        console.log("\n\n==================  'postAdd' clicked! =======");
+
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Post";// + "?" + $("#id").val();
+        var apiUrl = "http://localhost:5000/api/HCGridTest/Post" + "?ID=" + $("#id").val();
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        var data = $("#value").val();//"\"" + $("#value").val() + "\"";
+        console.log("* data=>%o<=", data);
+
+        $.ajax({
+            url: apiUrl, //valuesAddress,
+            type: "POST",
+            //contentType: "application/json",
+            //data: data,
+            dataType: 'json',
+            data: { "": "HCTestPostAdd" },
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                $("#result").text(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+
+    //=========================================================================
+    $("#putUpdate").click(function () {
+        console.log("\n\n==================  'putUpdate' clicked! =======");
+       // var id = "/" + $("#id").val();
+       // var data = "\"" + $("#value").val() + "\"";
+
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Put" + "?id=" + $("#id").val();// + "?" + $("#id").val();
+        var apiUrl = "http://localhost:5000/api/HCGridTest/Put" + "?ID=" + $("#id").val();
+        //apiUrl += id;
+
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        $.ajax({
+            url: apiUrl, //valuesAddress + id,
+            type: "PUT",
+            //contentType: "application/json",
+            //data: data,
+            dataType: 'json',
+            data: { "": "HCTestPutUpdate" },
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                $("#result").text(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+
+    //=========================================================================
+    $("#delete").click(function () {
+        console.log("\n\n==================  'Delete' clicked! =======");
+
+        //var id = "/" + $("#id").val();
+
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Delete";
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Delete" + "/" + $("#id").val();
+        var apiUrl = "http://localhost:5000/api/HCGridTest/Delete" + "?ID=" + $("#id").val();
+        //var apiUrl = "http://localhost:5000/api/HCGridTest/Delete" + '?' + $.param({ "Id": $("#id").val() });
+        //apiUrl += id;
+
+        console.log("* apiUrl=>%o<=", apiUrl);
+
+        $.ajax({
+            url: apiUrl, //valuesAddress + id,
+            type: "DELETE",
+            //dataType: "text",
+            //data: $("#id").val(),
+            success: function (result) {
+                console.log("* AJAX success : result =>%o<=", result);
+                $("#result").text(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("* AJAX error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+                $("#result").text(textStatus);
+            }
+        });
+    });
+
+    </script>
+}

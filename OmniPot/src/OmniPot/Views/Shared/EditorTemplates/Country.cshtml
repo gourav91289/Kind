@@ -1,0 +1,21 @@
+﻿@model OmniPot.Data.Models.Country
+
+@Html.HiddenFor(m => m.CountryId)
+@Html.HiddenFor(m => m.RowVersion)
+<div class="form-horizontal">
+    <div class="form-group-sm">
+        @Html.LabelFor(m => m.DisplayName)
+
+        <input asp-for="DisplayName" class="form-control" placeholder="@Localizer["Country Name"]" />
+        <span asp-validation-for="DisplayName" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group-sm">
+        @Html.LabelFor(m => m.Abbreviation)
+
+        <input asp-for="Abbreviation" class="form-control" placeholder="@Localizer["Abbreviation"]" />
+        <span asp-validation-for="Abbreviation" class="text-danger"></span>
+
+    </div>
+</div>

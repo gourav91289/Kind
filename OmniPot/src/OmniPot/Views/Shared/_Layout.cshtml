@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="~/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.min.css" rel="stylesheet" />
+    <link href="~/assets/css/omniPot.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="~/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
+    <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>   <!-- use jQuery from standard source - if this fails get it from Google or Microsoft -->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@  <!-- use jQuery from Google -->
+    @*<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>*@ <!-- use jQuery from Microsoft -->
+    @*<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>*@
+
+    <script src="https://kendo.cdn.telerik.com/2016.2.607/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.607/js/kendo.aspnetmvc.min.js"></script>
+    <!-- ================== BEGIN BASE JS ================== -->
+    @*<script src="~/assets/plugins/pace/pace.min.js"></script>*@
+    <!-- ================== END BASE JS ================== -->
+    <!--[if lt IE 9]>
+        <script src="~/assets/crossbrowserjs/excanvas.min.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.rtl.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2016.2.607/styles/kendo.default.min.css" />
+
+
+    @{
+        // Include the JavaScript for the current culture
+        var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+    }
+
+    <script src="@("https://kendo.cdn.telerik.com/2016.2.607/js/cultures/kendo.culture." + culture + ".min.js")"></script>
+
+    <script>
+		@* Set the current culture *@
+        kendo.culture("@culture");
+    </script>
+
+</head>
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="page-loader fade in"><span class="spinner">@SharedLocalizer["Loading"]</span></div>
+    <!-- end #page-loader -->
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+        <!-- begin #header -->
+        <div id="header" class="header navbar navbar-default navbar-fixed-top">
+            <!-- begin container-fluid -->
+            <div class="container-fluid">
+                <!-- begin mobile sidebar expand / collapse button -->
+                <div class="navbar-header">
+                    <a asp-controller="Home" asp-action="Index"><img src="~/assets/img/agrisoft-logo-transparent.png" style="height:50px; padding:2px;" alt="Agrisoft Seed To Sale" /></a>
+                    <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- end mobile sidebar expand / collapse button -->
+                @Html.Partial("_NavBarRightPartial")
+            </div>
+            <!-- end container-fluid -->
+        </div>
+        <!-- end #header -->
+        @Html.Partial("_SideBarPartial")
+        <!-- begin #content -->
+        <div id="content" class="content">
+            <!-- begin breadcrumb -->
+            <ol class="breadcrumb pull-right">
+                <li><a asp-controller="Home" asp-action="Index">@SharedLocalizer["Home"]</a></li>
+                @*This is a super hackish basic way to do this. We should probably have a 
+                    breadcrumb partial view that can handle this because we may want more than just the controller and actions*@
+                @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                {
+                    <li><a asp-controller="@ViewContext.RouteData.Values["controller"].ToString()" asp-action="@ViewContext.RouteData.Values["action"].ToString()">@ViewContext.RouteData.Values["action"].ToString()</a></li>                    
+                }
+            </ol>
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
+            <h1 class="page-header">@ViewBag.Title <small>@ViewBag.PageDescription</small></h1>
+            <!-- end page-header -->
+
+            <div>
+                @RenderBody()
+            </div>
+
+            <!-- begin #footer -->
+            <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2016 <b>OmniPot</b> All Right Reserved
+            </div>
+            <!-- end #footer -->
+        </div>
+        <!-- end #content -->
+        @Html.Partial("_SideBarRightPartial")
+    </div>
+    <!-- end page container -->
+    <!-- ================== BEGIN BASE JS ================== -->
+    @*<script src="~/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+    <script src="~/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>*@
+    <script src="~/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="~/assets/crossbrowserjs/html5shiv.js"></script>
+        <script src="~/assets/crossbrowserjs/respond.min.js"></script>
+    <![endif]-->
+    <script src="~/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+    <!-- ================== END BASE JS ================== -->
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="~/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js"></script>
+    <script src="~/assets/js/demo.min.js"></script>
+    <script src="~/assets/js/apps.min.js"></script>
+    <script src="~/assets/js/OmniPotCommon.js"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
+    @RenderSection("scripts", required: false)
+    <script>
+		$(document).ready(function() {
+		    App.init();
+		    Demo.init();
+		});
+    </script>
+
+</body>
+</html>

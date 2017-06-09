@@ -1,0 +1,246 @@
+﻿
+@inject IViewLocalizer Localizer
+
+
+<!-- begin #sidebar -->
+<div id="sidebar" class="sidebar">
+    <!-- begin sidebar scrollbar -->
+    <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar nav -->
+        <ul class="nav">
+            <li class="nav-user">
+                <div class="image">
+                    <img src="~/assets/img/user_profile.jpg" alt="" />
+                </div>
+                <div class="info">
+                    <div class="name dropdown">
+                        <a href="javascript:;" data-toggle="dropdown">@User.Identity.Name <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-controller="Manage" asp-action="ChangePassword">@Localizer["Change Password"]</a></li>
+                            @*<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+                            <li><a href="javascript:;">Calendar</a></li>
+                            <li><a href="javascript:;">Setting</a></li>*@
+                            <li class="divider"></li>
+                            <li><a asp-controller="Account" asp-action="LogOff">@Localizer["Log Off"]</a></li>
+                        </ul>
+                    </div>
+                    <div class="position">@*Employee Title here maybe?*@</div>
+                </div>
+            </li>
+            <li class="nav-header">@Localizer["Navigation"]</li>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-gears"></i>
+                    <span>Super Admin </span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Users"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Countries"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["States"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Tenants"]</a></li>
+                    <li  class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-gears"></i>
+                            <span>Sandbox </span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a asp-controller="SuperAdmin" asp-action="Tenants2">@Localizer["Tenants2"]</a></li>
+                            <li><a asp-controller="SuperAdmin" asp-action="HCgridTest">@Localizer["Hard Code Grid Test"]</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+
+                </ul>
+            </li>
+            }
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-truck"></i>
+                    <span>@Localizer["Inventory"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Summary"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Adjustment"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["Packaging"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-truck"></i>
+                    <span>@Localizer["Shipping / Receiving"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Purchase Order"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Vendor PO"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["Receive w/ PO"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["Receive w/o PO"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-money"></i>
+                    <span>@Localizer["Accounting"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Enter Expense"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Payout"]</a></li>
+                    
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Stuff"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-credit-card"></i>
+                    <span>@Localizer["Sales"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Stuff"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["For"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["This"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Menu"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-area-chart"></i>
+                    <span>@Localizer["Reporting"]</span>
+                </a>
+                <ul class="sub-menu">
+                    @*These will need to use a tenant context...*@
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Labor Report"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Hourly Sales"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Sales by User"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Sales Summary"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Sales Details"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Register Tape Report"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Sales by Category"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Receive w/PO"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["receive w/o PO"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Adjustments"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Green Waste"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Inventory Summary"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Extraction"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Production"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Grow Summary"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["P&L Statement"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Delivery"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+                                  
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-flask"></i>
+                    <span>@Localizer["Infused Production"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Extractions"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Recipies / Formulas"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Production System"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-tree"></i>
+                    <span>@Localizer["Cultivation"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Grow System"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Probably want to expand this"]</a></li>
+                    
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-medkit"></i>
+                    <span>@Localizer["Pharmacy"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Distibution Bay"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Deliveries"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-users"></i>
+                    <span>@Localizer["Employees"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Clock in / out"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Schedule"]</a></li>                    
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Settings"]</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-gear"></i>
+                    <span>@Localizer["Settings"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="Employees" asp-action="Index" asp-route-tenant="kind">@Localizer["Employees"]</a></li>
+
+                    <li><a asp-controller="SuperAdmin" asp-action="Users" asp->@Localizer["These"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["Would"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["be tenant specific settings"]</a></li>                    
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-life-ring"></i>
+                    <span>@Localizer["Help"]</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a asp-controller="SuperAdmin" asp-action="Users">@Localizer["Stuff"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Countries">@Localizer["For"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="States">@Localizer["This"]</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="Tenants">@Localizer["Menu"]</a></li>
+                </ul>
+            </li>
+
+
+
+        </ul>
+        <!-- end sidebar nav -->
+    </div>
+    <!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>
+
+
+<script>
+
+    $(document).ready(function () {
+        OP_consoleLog("\n\n================== _SideBarPartial is READY ==================\n\n ");
+    });
+
+</script>
+
+<!-- end #sidebar -->

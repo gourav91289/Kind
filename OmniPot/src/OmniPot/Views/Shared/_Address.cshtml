@@ -1,0 +1,183 @@
+﻿<!-- ============ Begin Address (_Address.cshtml) ============ -->
+
+@model OmniPot.Data.Models.Tenant
+
+
+<div>
+    @*style="background-color:lightyellow;"*@
+    <label for="_Address_Addressee">Addressee</label>
+    <input type="text" id="_Address_Addressee" value="" /> @* value="SA_Addressee"> *@
+</div>
+
+<div>
+    <label for="_Address_DeliveryLine1">DeliveryLine 1</label>
+    <input type="text" id="_Address_DeliveryLine1" value="" /> @* value="SA_DeliveryLine1"> *@
+</div>
+
+<div>
+    <label for="_Address_DeliveryLine2">DeliveryLine 2</label>
+    <input type="text" id="_Address_DeliveryLine2" value="" /> @* value="SA_DeliveryLine2"> *@
+</div>
+
+<div>
+    <label for="_Address_CityName">City Name</label>
+    <input type="text" id="_Address_CityName" value="" /> @* value="SA_CityName"> *@
+</div>
+
+<div>
+    <label for="countriesCB">Country:</label>
+    @(Html.Kendo().ComboBox()
+                      .Name("countriesCB")
+                      .HtmlAttributes(new { style = "width:100%;" })
+                      .Placeholder("Select Country...")
+                      .DataTextField("DisplayName")
+                      .DataValueField("CountryId")
+                      .Filter(FilterType.Contains)
+                      .DataSource(source => {
+                          source.Read(read => {
+                              read.Action("GetCascadeCountries", "Countries").Type(HttpVerbs.Get);
+                          });
+                      })
+    )
+</div>
+
+
+<div>
+    @*<label for="_Address_StateOrProvince">StateOrProvince</label>
+        <input type="text" id="_Address_StateOrProvince"  value="" /> @* value="SA_StateOrProvince"> *@
+    <label for="statesCB">State Or Province:</label>
+    @(Html.Kendo().ComboBox()
+                      .Name("statesCB")
+                      .HtmlAttributes(new { style = "width:100%;" })
+                      .Placeholder("Select State Or Province...")
+                      .DataTextField("DisplayName")
+                      .DataValueField("StateOrProvinceId")
+                      .Filter(FilterType.Contains)
+                      .DataSource(source => {
+                          source.Read(read => {
+                          read.Action("GetCascadeStates", "StatesOrProvinces").Type(HttpVerbs.Get)
+                          .Data("filterStates");
+                          })
+                          .ServerFiltering(true);
+    })
+                    .AutoBind(false)
+    .Enable(false) //..........// When these last two options are enabled, the 2nd dorpdown is disabled
+    .CascadeFrom("countriesCB")//   until a selection is made in the first dropdown.                
+    )
+<script>
+    function filterStates() {
+        console.log("\n ===== filterStates Starts ===== "
+            + "\n* countryId=>%o<="
+            + "\n* filterStates=>%o<="
+            , $("#countriesCB").val()
+            , $("#statesCB").data("kendoComboBox").input.val());
+        var result =  {            
+            countryId: $("#countriesCB").val(),
+            filterStates: $("#statesCB").data("kendoComboBox").input.val()
+        };
+        console.log("* result =>%o<= ===== filterStates Ends ===== \n", result)
+        return result;
+    }
+</script>
+
+</div>
+
+<div>
+    <label for="_Address_PostalCode">Postal Code</label>
+    <input type="text" id="_Address_PostalCode" value="" /> @* value="SA_PostalCode"> *@
+</div>
+
+
+
+@*<script>
+
+    $(document).ready(function () {
+        var categories = $("#countriesCB").data("kendoComboBox"),
+            products = $("#statesCB").data("kendoComboBox");
+
+        //$("#get").click(function () {
+        //    var categoryInfo = "\nCategory: { id: " + categories.value() + ", name: " + categories.text() + " }",
+        //        productInfo = "\nProduct: { id: " + products.value() + ", name: " + products.text() + " }",
+        //        orderInfo = "\nOrder: { id: " + orders.value() + ", name: " + orders.text() + " }";
+
+        //    alert("Order details:\n" + categoryInfo + productInfo + orderInfo);
+        //});
+    });
+
+
+</script>*@
+
+
+
+
+@*<script>
+    var dataSource = new kendo.data.DataSource({
+      transport: {
+        read: {
+          url: "http://demos.telerik.com/kendo-ui/service/products",
+          dataType: "jsonp"
+        }
+      }
+    });
+
+    $("#combobox").kendoComboBox({
+      dataSource: dataSource,
+      dataTextField: "ProductName",
+      dataValueField: "ProductID"
+    });
+    </script>*@
+
+
+
+
+
+
+
+
+
+
+
+@*<div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.Addressee, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.Addressee, new { htmlAttributes = new { @class = "form-control", @id = "_Address_Addressee" } } )
+        @Html.ValidationMessageFor(model => model.Address.Addressee)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.DeliveryLine1, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.DeliveryLine1, new { htmlAttributes = new { @class = "form-control", @id = "_Address_DeliveryLine1" } })
+        @Html.ValidationMessageFor(model => model.Address.DeliveryLine1)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.DeliveryLine2, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.DeliveryLine2, new { htmlAttributes = new { @class = "form-control", @id = "_Address_DeliveryLine2" } })
+        @Html.ValidationMessageFor(model => model.Address.DeliveryLine2)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.CityName, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.CityName, new { htmlAttributes = new { @class = "form-control", @id = "_Address_CityName" } })
+        @Html.ValidationMessageFor(model => model.Address.CityName)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.StateOrProvince.DisplayName, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.StateOrProvince.DisplayName, new { htmlAttributes = new { @class = "form-control", @id = "_Address_StateOrProvince_DisplayName" } })
+        @Html.ValidationMessageFor(model => model.Address.StateOrProvince.DisplayName)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.StateOrProvince.Country, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.StateOrProvince.Country, new { htmlAttributes = new { @class = "form-control", @id = "_Address_StateOrProvince_Country" } })
+        @Html.ValidationMessageFor(model => model.Address.StateOrProvince.Country)
+    </div>
+
+    <div style="background-color:lightgreen;">
+        @Html.LabelFor(model => model.Address.PostalCode, new { @style = "display:inline-block" })
+        @Html.EditorFor(model => model.Address.PostalCode, new { htmlAttributes = new { @class = "form-control", @id = "_Address_Addressee" } })
+        @Html.ValidationMessageFor(model => model.Address.PostalCode)
+    </div>*@
+
+
+<!-- ============== End Address ============ -->

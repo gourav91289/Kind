@@ -1,0 +1,65 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Login"];
+}
+
+<div class="login">
+    <!-- begin login-brand -->
+    <div class="login-brand bg-inverse text-white">
+        <img src="~/assets/img/agrisoft-logo-transparent.png" height="36" class="pull-right" alt="" /> @Localizer["Login Panel"]
+    </div>
+    <!-- end login-brand -->
+    <!-- begin login-content -->
+    <div class="login-content">
+        <h4 class="text-center m-t-0 m-b-20">@Localizer["Great to have you back!"]</h4>
+        <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-input-flat">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+
+
+                <input asp-for="Email" class="form-control input-lg" placeholder="@Localizer["Email"]" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+
+
+                <input asp-for="Password" class="form-control input-lg" placeholder="@Localizer["Password"]"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Localizer["Remember Me?"]
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="row m-b-20">
+                <button type="submit" class="btn btn-lime btn-lg btn-block">@Localizer["Log In"]</button>
+            </div>
+
+            <div class="text-center">
+                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">@Localizer["Register as a new user?"]</a>
+
+                <a asp-action="ForgotPassword">@Localizer["Forgot your password?"]</a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

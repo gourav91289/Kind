@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Lists example";
+}
+<h2>Countries</h2>
+
+@(Html.Kendo().DropDownList()
+          .Name("countries")          
+          .HtmlAttributes(new { style = "width: 250px" })
+          .DataTextField("displayName")
+          .DataValueField("id")
+          .DataSource(source => source
+              .Custom()
+              .Transport(transport => transport
+                    .Read(read =>
+                    {
+                        read.Url("/api/List/Countries")
+                            .DataType("json");
+                    })
+              )
+          )
+)
+
+<h2>States</h2>
+
+
+@(Html.Kendo().DropDownList()
+          .Name("states")
+          .HtmlAttributes(new { style = "width: 250px" })
+          .DataTextField("displayName")
+          .DataValueField("id")
+          .DataSource(source => source
+              .Custom()
+              .Transport(transport => transport
+                    .Read(read =>
+                    {
+                        read.Url("/api/List/States")
+                            .DataType("json");
+                    })
+              )
+          )
+)
+
+<h2>UOM</h2>
+
+
+@(Html.Kendo().DropDownList()
+          .Name("uom")
+          .HtmlAttributes(new { style = "width: 250px" })
+          .DataTextField("displayName")
+          .DataValueField("id")
+          .DataSource(source => source
+              .Custom()
+              .Transport(transport => transport
+                    .Read(read =>
+                    {
+                        read.Url("/api/List/UOM")
+                            .DataType("json");
+                    })
+              )
+          )
+)
+
+<h2>Tenant Routes</h2>
+
+
+@(Html.Kendo().DropDownList()
+          .Name("tenantRoutes")
+          .HtmlAttributes(new { style = "width: 250px" })
+          .DataTextField("displayName")
+          .DataValueField("routeName")
+          .DataSource(source => source
+              .Custom()
+              .Transport(transport => transport
+                    .Read(read =>
+                    {
+                        read.Url("/api/List/TenantRoutes")
+                            .DataType("json");
+                    })
+              )
+          )
+)

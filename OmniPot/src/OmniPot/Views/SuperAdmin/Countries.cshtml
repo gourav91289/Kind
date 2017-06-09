@@ -1,0 +1,376 @@
+﻿@{
+    ViewData["Title"] = "Countries";
+    ViewData["PageDescription"] = "Here Countries may be Created, Updated and Deleted.";
+}
+
+@model OmniPot.Data.Models.Country
+
+
+<h1>Countries</h1>
+
+@(Html.Kendo().Grid<OmniPot.Data.Models.Country>()
+        .Name("grid")
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .ToolBar(t => {
+            t.Custom().Text("Add").HtmlAttributes(new { id = "customAdd" });
+            t.Custom().Text("Show Deleted").HtmlAttributes(new { id = "toggleDeleted" });
+        })
+        .Events(e => {
+            e.DataBound("OP_styleGridRows");
+        })
+       .Columns(c => {
+           c.Bound("DisplayName").Title("Name");
+           c.Bound("Abbreviation").Title("Abbreviation");
+           c.Command(command => {
+               command.Custom("Update").Click("update").HtmlAttributes(new { id = "updateButton" });
+               command.Custom("Delete").Click("OP_deleteEntity").HtmlAttributes(new { id = "deleteButton" });
+               command.Custom("Undelete").Click("OP_undelete").HtmlAttributes(new { id = "undeleteButton" });
+               command.Custom("Hard Delete").Click("OP_hardDelete");
+           }).Width(258);
+       })
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Type("aspnetmvc-ajax")
+        .PageSize(10)
+        .ServerPaging(true)
+        .ServerSorting(true)
+        .ServerFiltering(true)
+        .Sort(sort => sort.Add("DisplayName").Ascending()) // <-- initial sort expression
+        .Events(e => e.Error("error_handler"))
+    )  @*end DataSource*@
+)
+@*============================================================ 1 *@
+
+
+@* ========== Custom Add/Create or Update Window ========== *@
+
+<div id="modalWindow_CustomAdd">
+
+    <div>
+        <label for="modalWindow_CustomAdd_CountryName">Country Name</label>
+        <input type="text" id="modalWindow_CustomAdd_CountryName" /> @*value="HC_DisplayName">*@
+    </div>
+
+    <div>
+        <label for="modalWindow_CustomAdd_CountryAbbreviation">Country Abbreviation</label>
+        <input type="text" id="modalWindow_CustomAdd_CountryAbbreviation" /> @*value="HC_RouteName">*@
+    </div>
+
+    <hr />
+    <button id="button_CustomAdd_create" class="k-button">Create</button>
+    <button id="button_CustomAdd_cancel" class="k-button">Cancel</button>
+
+</div>
+
+
+@*============================================================ 2  *@
+
+<script>
+    var wnd_CustomAdd;
+    //var showDeleted = false;
+    //var dataRefreshRunning = false;
+    //var showDeletedStateChanged = false;
+
+
+
+    $(document).ready(function () {
+        OP_consoleLog("\n\n================== Countries READY === jQuery.fn.jquery =>%o<=", jQuery.fn.jquery);
+
+        OP_EntitySetup("Country",                                //EntityName
+            "http://localhost:5000/api/Countries/CountryCreate",            //CreateURL
+            "http://localhost:5000/api/Countries/GetCountriesList",         //ReadURL
+            "http://localhost:5000/api/Countries/GetCountriesListDeleted",  //ReadDeleteURL
+            "http://localhost:5000/api/Countries/CountryUpdate",            //UpdateURL
+            "http://localhost:5000/api/Countries/CountryDelete",            //DeleteURL
+            "http://localhost:5000/api/Countries/CountryHardDelete",        //HardDeleteURL
+            "http://localhost:5000/api/Countries/CountryUndelete"           //UndeleteURL
+            );
+
+
+        //define the Custom Add window for custom comand
+        wnd_CustomAdd = $("#modalWindow_CustomAdd").kendoWindow({
+            title: "Create New Country",
+            modal: true,
+            visible: false,
+            resizable: false,
+            width: 350
+        }).data("kendoWindow");
+
+        $("#customAdd").click(function (e) {
+            //O/P_consoleLog("\n\n================== ready customAdd(e=>%o<=) RAN  ==================\n\n", e);
+            customAdd(e);
+        });
+
+        $("#toggleDeleted").click(function (e) {
+            //O/P_consoleLog("\n\n================== ready toggleDeleted(e=>%o<=) RAN  ==================\n\n", e);
+            OP_toggleDeleted(e);
+        });
+
+        OP_refreshGridData();
+    });
+
+
+    ////=============================================================================
+    //function refreshGridData() {
+    //    //c/onsole.log("\n\n================== refreshGridData() STARTS == ( showDeleted =>%o<= ) ===================", showDeleted);
+    //    dataRefreshRunning = true;
+    //    var grid = $("#grid").data("kendoGrid");
+    //    //c/onsole.log(" * grid=>%o<=", grid);
+    //    var currentPage = grid.dataSource.page();
+    //    if (showDeletedStateChanged == true) {
+    //        showDeletedStateChanged = false;
+    //        currentPage = 1; // the number of displayed pages can differ a lot between showing or hiding deleted Countries, but we will always have a first page
+    //    }
+    //    //c/onsole.log(" * currentPage=>%o<=", currentPage);
+
+    //    var dataSource = grid.dataSource;
+    //    //c/onsole.log(" * dataSource=>%o<=", dataSource);
+
+    //    var apiUrl;
+    //    if (showDeleted) {
+    //        apiUrl = "http://localhost:5000/api/Countries/GetCountriesListDeleted";
+    //    } else {
+    //        apiUrl = "http://localhost:5000/api/Countries/GetCountriesList";
+    //    }
+    //    //c/onsole.log("* apiUrl=>%o<=", apiUrl);
+
+    //    $.ajax({
+    //        url: apiUrl,
+    //        type: "GET",
+    //        contentType: "application/json; charset=utf-8",
+    //        crossDomain: true,
+    //        success: function (result) {
+    //            //O/P_consoleLog("\n\n ************ refreshGridData AJAX success STARTS *******************");
+    //            //O/P_consoleLog("* result =>%o<=", result);
+    //            //O/P_consoleLog("* result.Data.length =>%o<=", result.Data.length);
+    //            ////O/P_consoleLog("* About to loop though result data");
+    //            //for (var i = 0; i < result.Data.length; i++) {
+    //            //    //O/P_consoleLog("   *" + i + ": DisplayName:" + result.Data[i].DisplayName + ", RouteName:" + result.Data[i].RouteName + ", Addressee:" + result.Data[i].Address.Addressee + ", State:" + result.Data[i].State);
+    //            //}
+
+    //            try {
+    //                //dataSource.data([]);//clear out old data
+    //                grid = $("#grid").data("kendoGrid");
+    //                dataSource.data(result.Data);   //add new data
+    //                dataSource.sync();              //refresh grid
+
+    //                //TODO - find out why this is throwing a "fetch is no a function" exception in Telerik code - but it still works OK.
+    //                try {
+    //                    grid.setDataSource(result.Data);//set the new data as the grids new datasource
+    //                }
+    //                catch (err) {
+
+    //                    OP_consoleError("\n\n ===== refreshGridData(showDeleted =>%o<=)"
+    //                                    + "\nError trying to grid.setDataSource.... err=>%o<="
+    //                                    + "===== \n\n "
+    //                                 , showDeleted, err);
+    //                }
+
+    //                //O/P_consoleLog("**** grid.dataSource.page(%o); is ", grid.dataSource.page());
+    //                grid.dataSource.pageSize(10);
+    //                grid.dataSource.page(currentPage);
+    //                grid.dataSource.sort({ field: "DisplayName", dir: "asc" });
+    //                dataRefreshRunning = false;
+    //                grid.refresh();
+    //            }
+    //            catch (err) {
+
+    //                OP_consoleError("\n\n ===== refreshGridData AJAX(showDeleted =>%o<=)"
+    //                                + "\nError trying to set Country Data into Grid.... err=>%o<="
+    //                                + "===== \n\n "
+    //                             , showDeleted, err);
+    //            }
+    //            //O/P_consoleLog("************ refreshGridData AJAX success ENDS ********************* \n\n");
+
+    //        },
+    //        error: function (jqXHR, textStatus, errorThrown) {
+    //            OP_consoleError("\n\n ===== refreshGridData AJAX(showDeleted(e=>%o<=)"
+    //                            + "\nError trying to getting new Country Data:"
+    //                            + "\njqXHR =>%o<="
+    //                            + "\ntextStatus =>%o<="
+    //                            + "errorThrown =>%o<="
+    //                            + "===== \n\n "
+    //                         , showDeleted, jqXHR, textStatus, errorThrown);
+    //        }
+    //    });
+
+    //    //c/onsole.log("    ================== refreshGridData(e=>%o<=) ENDS =====================\n\n", showDeleted);
+    //}
+
+    //=============================================================================
+    function update(e) {
+        //O/P_consoleLog("\n\n================== update(e=>%o<=) STARTS ===================", e);
+
+        var hd_grid = $("#grid").data("kendoGrid");
+        //O/P_consoleLog(" * hd_grid=>%o<=", hd_grid);
+
+        var hd_row = $(e.currentTarget).closest("tr");
+        //O/P_consoleLog(" * hd_row=>%o<=", hd_row);
+
+        var dataItem = this.dataItem(hd_row);
+        //O/P_consoleLog(" * dataItem=>%o<=", dataItem);
+        updateDataItem = dataItem;
+
+
+        $("#modalWindow_CustomAdd_CountryName").val(dataItem.DisplayName);
+        $("#modalWindow_CustomAdd_CountryAbbreviation").val(dataItem.Abbreviation);
+
+        $("#button_CustomAdd_create").text("Update");
+        $("#button_CustomAdd_create").unbind('click'); //if we don't unbind old actions, we get multible clicks defined and they all will run.
+        $("#button_CustomAdd_create").click({ isCreateing: false, e: e, dataItem: dataItem }, CountryCreate);
+
+        $("#button_CustomAdd_cancel").unbind('click');
+        $("#button_CustomAdd_cancel").click(function () {
+            //O/P_consoleLog("Close the Custom Add/Create Window");
+            wnd_CustomAdd.close();
+        });
+
+        wnd_CustomAdd.center().open();
+        var dialog = $("#modalWindow_CustomAdd").data("kendoWindow");
+        dialog.title("Update Exsisting Country");
+
+        //O/P_consoleLog("================== update() ENDS =====================\n\n");
+    }
+
+    //=============================================================================
+    function customAdd(e) {
+        //this custom add uses completly manulay built edit windows and direct ajax calls to api then adds the newly created Country into grid
+        //O/P_consoleLog("\n\n================== customAdd(e=>%o<=) STARTS  ================== ", e);
+        e.preventDefault();
+
+        //dialog.refresh();  //may not be understanding how to use this but it is not empting the input fields
+        //http://docs.telerik.com/kendo-ui/api/javascript/ui/window#methods-refresh
+
+        //O/P_consoleLog("* About to set the input fields to empty fields...");
+        $("#modalWindow_CustomAdd_CountryName").val("");
+        $("#modalWindow_CustomAdd_CountryAbbreviation").val("");
+
+        $("#button_CustomAdd_create").text("Create");
+        $("#button_CustomAdd_create").unbind('click'); //if we don't unbind old actions, we get multible clicks defined and they all will run.
+        $("#button_CustomAdd_create").click({ isCreateing: true, e: e, dataItem: null }, CountryCreate);
+
+        $("#button_CustomAdd_cancel").unbind('click');
+        $("#button_CustomAdd_cancel").click(function () {
+            //O/P_consoleLog("Close the Custom Add/Create Window");
+            wnd_CustomAdd.close();
+        });
+
+        wnd_CustomAdd.center().open();
+        var dialog = $("#modalWindow_CustomAdd").data("kendoWindow");
+        dialog.title("Create New Country");
+
+
+        //O/P_consoleLog("================== customAdd(e=>%o<=) ENDS =====================\n\n", e);
+    }
+
+    //=========================================================================
+    function CountryCreate(event) {
+
+        var e = event.data.e;
+
+        var isCreateing = event.data.isCreateing
+        var dataItem = event.data.dataItem;
+
+        e.preventDefault();
+
+        if (isCreateing == true) {
+            //O/P_consoleLog("\n\n================== CountryCreate(e=>%o<=) STARTS in CREATE mode ==================", e);
+        } else {
+            //O/P_consoleLog("\n\n================== CountryCreate(e=>%o<=) STARTS in UPDATE mode ==================", e);
+        }
+        //O/P_consoleLog(" * isCreateing=>%o<=", isCreateing);
+        //O/P_consoleLog(" * dataItem=>%o<=", dataItem);
+
+        var grid = $("#grid").data("kendoGrid");
+        //O/P_consoleLog(" * grid=>%o<=", grid);
+
+        var dataSource = grid.dataSource;
+        //O/P_consoleLog(" * dataSource=>%o<=", dataSource);
+
+
+        var CountryName = $("#modalWindow_CustomAdd_CountryName").val();
+        var CountryAbbreviation = $("#modalWindow_CustomAdd_CountryAbbreviation").val();
+
+        //O/P_consoleLog(" * CountryName         =>%o<=", CountryName);
+        //O/P_consoleLog(" * CountryAbbreviation =>%o<=", CountryAbbreviation);
+
+        var formData;
+
+        if (isCreateing == true) {
+            formData = {
+                "CountryId": "00000000-0000-0000-0000-000000000000",
+                "DisplayName": CountryName,
+                "Abbreviation": CountryAbbreviation,
+                //"State" : 1
+            };
+
+            formData = JSON.stringify(formData);
+        } else { //isCreateing == false
+            dataItem.DisplayName = CountryName;
+            dataItem.Abbreviation = CountryAbbreviation;
+            //dataItem.State = 1;
+
+            formData = JSON.stringify(dataItem);
+        }
+
+        //O/P_consoleLog(" * formData        =>%o<=", formData);
+
+        var apiUrl = "http://localhost:5000/api/Countries/CountryCreate";  //save this change NOW!
+        var transactionType = "POST";
+        if (isCreateing == false) {
+            apiUrl = "http://localhost:5000/api/Countries/CountryUpdate";
+            transactionType = "PUT";
+        }
+        //O/P_consoleLog("* apiUrl=>%o<=", apiUrl);
+        //O/P_consoleLog("* transactionType=>%o<=", transactionType);
+
+        //OP_consoleError("Delibertly commented out AJAX call!");
+
+        $.ajax({
+            url: apiUrl,
+            type: transactionType,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: formData,
+            crossDomain: true,
+            success: function (result) {
+                //O/P_consoleLog("* CountryCreate AJAX success : (newRow ) result =>%o<=", result);
+
+                try {
+                    dataSource.sync();
+                    OP_refreshGridData();
+                }
+                catch (err) {
+
+                    OP_consoleError("* CountryCreate AJAX Error trying to Create a Country.... err=>%o<=", err);
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                OP_consoleError("* CountryCreate AJAX  error : jqXHR =>%o<=,  textStatus =>%o<=, errorThrown =>%o<=", jqXHR, textStatus, errorThrown);
+            }
+        });
+
+        if (isCreateing == true) {
+            //O/P_consoleLog("================== CountryCreate(e=>%o<=) ENDS in CREATE mode =====================\n\n", e);
+        } else {
+            //O/P_consoleLog("================== CountryCreate(e=>%o<=) ENDS in UPDATE mode =====================\n\n", e);
+        }
+        wnd_CustomAdd.close();
+
+    }
+
+    //=============================================================================
+    function error_handler(e) {
+        OP_consoleError("\n\n================== error_handler(e=>%o<=) ran ==================\n\n", e);
+        var errors = $.parseJSON(e.xhr.responseText);
+
+        if (errors) {
+            alert("Errors:\n" + errors.join("\n"));
+        }
+    }
+
+</script>
+
