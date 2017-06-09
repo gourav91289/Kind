@@ -33,7 +33,23 @@
     <Content Remove="bower.json" />
     <None Remove=".bowerrc" />
     <Content Include="ClientApp\app\template\app.component.html" />
-    <Content Include="wwwroot\styles.css" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.eot" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.svg" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.ttf" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.woff" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.woff2" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin.zip" />
     <Content Include="wwwroot\systemjs.config.js" />
     <None Update="wwwroot\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
