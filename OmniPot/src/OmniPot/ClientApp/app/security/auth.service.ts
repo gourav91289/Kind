@@ -6,6 +6,10 @@ import { OpenIdDictToken } from './OpenIdDictToken'
 @Injectable()
 export class AuthService {
 
+    access_token: any;
+    user: any;
+    expires_in: number;
+
     constructor() { }
 
     // for requesting secure data using json
@@ -37,20 +41,22 @@ export class AuthService {
     // for requesting unsecured data using form post
     contentHeaders() {
         let header = new Headers();
-        header.append('Content-Type', 'application/x-www-form-urlencoded');
+        header.append('Content-Type', 'application/json;application/x-www-form-urlencoded');
         header.append('Accept', 'application/json');
         return header;
     }
 
     // After a successful login, save token data into session storage
     // note: use "localStorage" for persistent, browser-wide logins; "sessionStorage" for per-session storage.
-    login(responseData: OpenIdDictToken) {
-        let access_token: string = responseData.access_token;
-        let expires_in: number = responseData.expires_in;
-        sessionStorage.setItem('access_token', access_token);
-        sessionStorage.setItem('bearer_token', access_token);
+    login(user, responseData) {
+        this.access_token = responseData.Message;
+        this.user = user;      
+        this.expires_in = 20;
+
+        sessionStorage.setItem('access_token', this.access_token);
+        sessionStorage.setItem('bearer_token', this.access_token);
         // TODO: implement meaningful refresh, handle expiry 
-        sessionStorage.setItem('expires_in', expires_in.toString());
+        sessionStorage.setItem('expires_in', this.expires_in.toString());
     }
 
     // called when logging out user; clears tokens from browser
