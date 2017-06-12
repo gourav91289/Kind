@@ -12,6 +12,7 @@ import "rxjs/Rx";
 import { AppComponent } from "./app.component";
 import { ControlMessagesComponent } from './components/control-messages.component';
 import { LoginComponent } from "./components/login/login.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
 //Service Import
 import { ValidationService } from './services/validation.service';
@@ -23,7 +24,7 @@ import { AuthGuard } from './security/auth-guard.service';
     // modules
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRouting ],
     // directives, components, and pipes
-    declarations: [ ControlMessagesComponent, AppComponent, LoginComponent ],    
+    declarations: [ControlMessagesComponent, AppComponent, LoginComponent, DashboardComponent ],    
     // providers
     providers: [ ValidationService, AuthService, AuthGuard, Title, { provide: APP_BASE_HREF, useValue: '/' } ],
     bootstrap: [ AppComponent ]

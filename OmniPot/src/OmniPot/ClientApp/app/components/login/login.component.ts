@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { LoginViewModel } from '../../viewmodels/account/login';
+import { LoginViewModel } from '../../viewmodels/account/login.interface';
 import { ValidationService } from '../../services/validation.service';
 import { AuthService } from '../../security/auth.service';
 
@@ -15,7 +15,7 @@ import { AuthService } from '../../security/auth.service';
     </div>
 
     <div class="col-lg-4 col-sm-6 col-lg-offset-1 login-font">
-        <form [formGroup]="loginForm" (submit)="login()">
+        <form [formGroup]="loginForm" novalidate (submit)="login(loginForm.value)">
             <h1 class="h1">Log In</h1>
             <span class="font-size11">Please enter your username and password to login</span>
 
@@ -28,10 +28,10 @@ import { AuthService } from '../../security/auth.service';
                 <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Password" title="Please enter your password">
                 <control-messages [control]="loginForm.controls.password" class="help-block"></control-messages>
             </div>
-            <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
+            <div id="loginErrorMsg" *ngIf="isLoginError" class="alert alert-danger">{{loginErrorMessage}}</div>
             <div class="checkbox">
                 <label class="font-size11">
-                    <input type="checkbox" name="remember" id="remember" formControlName="isRemember">Remember login
+                    <input type="checkbox" name="remember" id="remember" formControlName="rememberMe">Remember login
                 </label>
                 <a href="#" class="pull-right font-size11">Forgot Password</a>
             </div>
@@ -42,13 +42,16 @@ import { AuthService } from '../../security/auth.service';
         <a href="#" class="font-size14">Need help with login?</a><br>
         <a href="#" class="font-size12"><strong>Click here</strong></a> <span class="font-size12">to read our FAQ section.</span>
     </div>
-</div>`,    
+</div>`,
 })
 
 export class LoginComponent implements OnInit {
     loginForm: any;
-    logoPath: string;    
-    loginViewModel: LoginViewModel;
+    logoPath: string;
+    public isLoginError: boolean;
+    loginErrorMessage: string;
+    public submitted: boolean;
+    public events: any[] = [];
 
     constructor(
         public router: Router,
@@ -56,41 +59,56 @@ export class LoginComponent implements OnInit {
         public http: Http,
         private authService: AuthService,
         private formBuilder: FormBuilder) {
-        this.logoPath = './images/logo.png';
-            this.loginForm = this.formBuilder.group({            
-            'email': ['', [Validators.required, ValidationService.emailValidator]],
-            'password': ['', [Validators.required, ValidationService.passwordValidator]],
-            'isRemember': [true]
-        });
+        this.logoPath = './images/logo.png';       
     }
 
     ngOnInit() {
-        this.loginViewModel = new LoginViewModel();
+        this.loginForm = this.formBuilder.group({
+            'email': ['', [Validators.required, ValidationService.emailValidator]],
+            'password': ['', [Validators.required, ValidationService.passwordValidator]],
+            'rememberMe': [true]
+        });
+
+        //setting title
+        this.setTitle('Agrisoft - Login');
+
+        // subscribe to form changes  
+        this.subcribeToFormChanges();
     }
 
-    public setTitle(newTitle: string) {
+    // wrapper to the Angular title service.
+    setTitle(newTitle: string) {
         this.titleService.setTitle(newTitle);
     }
 
+    subcribeToFormChanges() {
+        const myFormStatusChanges$ = this.loginForm.statusChanges;
+        const myFormValueChanges$ = this.loginForm.valueChanges;
+
+        myFormStatusChanges$.subscribe(x => this.events.push({ event: 'STATUS_CHANGED', object: x }));
+        myFormValueChanges$.subscribe(x => this.events.push({ event: 'VALUE_CHANGED', object: x }));
+    }
+
     // post the user's login details to server, if authenticated token is returned, then token is saved to session storage
-    login() {
-        if (this.loginForm.dirty && this.loginForm.valid) {
-            let user = {
-                username: this.loginForm.value.email,
-                password: this.loginForm.value.password,
-                RememberMe: this.loginForm.value.isRemember,
-            };
-            debugger;
+    login(user: LoginViewModel) {
+        //alert(`Email: ${user.email}, Password: ${user.password}, Remember: ${user.rememberMe}`);
+        this.isLoginError = false;
+        if (this.loginForm.dirty && this.loginForm.valid) {            
             this.http.post('/api/account/authenticate', user, { headers: this.authService.contentHeaders() })
                 .subscribe(response => {
-                    alert(response.json());
                     // success, save the token to session storage
-                    this.authService.login(response.json());
-                    this.router.navigate(['/about']);
+                    var result = response.json();
+                    if (result.Succeeded) {
+                        this.authService.login(user, result);
+                        this.router.navigate(['/dashboard']);
+                    }
+                    else {
+                        this.isLoginError = true;
+                        this.loginErrorMessage = result.Message;
+                    }
                 },
                 error => {
                     // failed; TODO: add some nice toast / error handling
-                    alert(error.text());
                     console.log(error.text());
                 });
         }

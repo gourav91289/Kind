@@ -36,9 +36,14 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/router"
                     this.titleService = titleService;
                     this.http = http;
                     this.authService = authService;
-                    this.title = "The Backpackers' Lounge";
-                    this.subTitle = "For geeks who want to explore nature beyond limits.";
+                    this.title = "Agrisoft";
                 }
+                AppComponent.prototype.ngOnInit = function () {
+                    //setting title
+                    this.setTitle('Agrisoft');
+                    // subscribe to form changes  
+                    this.isLoggedIn();
+                };
                 // wrapper to the Angular title service.
                 AppComponent.prototype.setTitle = function (newTitle) {
                     this.titleService.setTitle(newTitle);
@@ -46,8 +51,9 @@ System.register(["@angular/core", "@angular/platform-browser", "@angular/router"
                 // provide local page the user's logged in status (do we have a token or not)
                 AppComponent.prototype.isLoggedIn = function () {
                     var val = this.authService.loggedIn();
-                    alert(val);
-                    return val;
+                    if (!this.authService.loggedIn()) {
+                        this.router.navigate(['/login']);
+                    }
                 };
                 return AppComponent;
             }());
