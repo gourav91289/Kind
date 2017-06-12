@@ -1,4 +1,5 @@
-﻿var gulp = require('gulp'),
+/// <binding BeforeBuild='default' />
+var gulp = require('gulp'),
     gp_clean = require('gulp-clean'),
     gp_concat = require('gulp-concat'),
     gp_less = require('gulp-less'),
@@ -106,7 +107,7 @@ gulp.task('template', ['template_clean'], function () {
 });
 
 // Copy all HTML files from external libraries to wwwroot/css
-gulp.task('minify-css', function () {
+gulp.task('minify-css', ['css_clean'] , function () {
     return gulp.src(srcPaths.css)
         .pipe(gp_sourcemaps.init())
         .pipe(gp_cleanCSS())
@@ -132,3 +133,4 @@ gulp.task('watch', function () {
 
 // Define the default task so it will launch all other tasks
 gulp.task('default', ['app', 'js', 'template', 'minify-css', 'minify-images']);
+//gulp.task('default', ['js', 'template', 'minify-css', 'minify-images']);

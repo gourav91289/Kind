@@ -6,9 +6,7 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             LoginViewModel = (function () {
-                function LoginViewModel(username, password) {
-                    this.username = username;
-                    this.password = password;
+                function LoginViewModel() {
                 }
                 return LoginViewModel;
             }());

@@ -1,6 +1,7 @@
-﻿export class LoginViewModel {
-    constructor(
-        public username: string,
-        public password: string    
-    ) { }
+﻿import { Component } from '@angular/core';
+
+export class LoginViewModel {
+    email: string;
+    password: string;
+    isRemember: boolean;
 }

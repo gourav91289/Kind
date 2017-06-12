@@ -22,7 +22,6 @@
     <EmbeddedResource Remove="Controllers\client\**" />
     <None Remove="Controllers\Admin\**" />
     <None Remove="Controllers\client\**" />
-    <Compile Remove="Controllers\AccountController.cs" />
     <Compile Remove="Controllers\CountriesController.cs" />
     <Compile Remove="Controllers\HomeController.cs" />
     <Compile Remove="Controllers\ListController.cs" />
@@ -122,6 +121,42 @@
 
   <ItemGroup>
     <None Include="tsconfig.json" />
+    <None Include="wwwroot\app\app.component.js" />
+    <None Include="wwwroot\app\app.component.js.map" />
+    <None Include="wwwroot\app\app.component.ts" />
+    <None Include="wwwroot\app\app.module.js" />
+    <None Include="wwwroot\app\app.module.js.map" />
+    <None Include="wwwroot\app\app.module.ts" />
+    <None Include="wwwroot\app\app.routing.js" />
+    <None Include="wwwroot\app\app.routing.js.map" />
+    <None Include="wwwroot\app\app.routing.ts" />
+    <None Include="wwwroot\app\components\control-messages.component.js" />
+    <None Include="wwwroot\app\components\control-messages.component.js.map" />
+    <None Include="wwwroot\app\components\control-messages.component.ts" />
+    <None Include="wwwroot\app\components\login\login.component.js" />
+    <None Include="wwwroot\app\components\login\login.component.js.map" />
+    <None Include="wwwroot\app\components\login\login.component.ts" />
+    <None Include="wwwroot\app\main.js" />
+    <None Include="wwwroot\app\main.js.map" />
+    <None Include="wwwroot\app\main.ts" />
+    <None Include="wwwroot\app\security\auth-guard.service.js" />
+    <None Include="wwwroot\app\security\auth-guard.service.js.map" />
+    <None Include="wwwroot\app\security\auth-guard.service.ts" />
+    <None Include="wwwroot\app\security\auth.service.js" />
+    <None Include="wwwroot\app\security\auth.service.js.map" />
+    <None Include="wwwroot\app\security\auth.service.ts" />
+    <None Include="wwwroot\app\security\OpenIdDictToken.js" />
+    <None Include="wwwroot\app\security\OpenIdDictToken.js.map" />
+    <None Include="wwwroot\app\security\OpenIdDictToken.ts" />
+    <None Include="wwwroot\app\services\app.service.js" />
+    <None Include="wwwroot\app\services\app.service.js.map" />
+    <None Include="wwwroot\app\services\app.service.ts" />
+    <None Include="wwwroot\app\services\validation.service.js" />
+    <None Include="wwwroot\app\services\validation.service.js.map" />
+    <None Include="wwwroot\app\services\validation.service.ts" />
+    <None Include="wwwroot\app\viewmodels\account\login.js" />
+    <None Include="wwwroot\app\viewmodels\account\login.js.map" />
+    <None Include="wwwroot\app\viewmodels\account\login.ts" />
   </ItemGroup>
 
 </Project>
