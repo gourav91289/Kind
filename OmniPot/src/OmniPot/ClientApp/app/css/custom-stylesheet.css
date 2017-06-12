@@ -160,3 +160,21 @@ hr {
 	background: linear-gradient(180deg, #22efff 0%, #18b4c7 100%);
 	border: 1px solid #1ab8ca;
 }
+
+button[disabled] {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+control-messages div {
+    color: #E82C0C;
+    margin: 6px 0;
+}
+
+form.ng-invalid {
+    border: 0;
+}
+
+.ng-invalid {
+    border: 2px solid #a94442;
+}
