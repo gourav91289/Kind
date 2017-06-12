@@ -20,7 +20,7 @@ var srcPaths = {
         'node_modules/moment/moment.js'
     ],
     template: [
-        'ClientApp/app/template/*.html'],
+        'ClientApp/app/template/**'],
     js_angular: [
         'node_modules/@angular/**'
     ],
