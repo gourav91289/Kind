@@ -5,6 +5,7 @@ import { AuthGuard } from './security/auth-guard.service';
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
+
 const routes: Routes = [
     // otherwise redirect to home
     { path: '', component: DashboardComponent, canActivate: [AuthGuard] },

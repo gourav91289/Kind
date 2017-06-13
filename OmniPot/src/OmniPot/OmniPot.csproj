@@ -105,6 +105,7 @@
     <PackageReference Include="System.ServiceModel.Security" Version="4.0.1" />
     <PackageReference Include="System.Private.ServiceModel" Version="4.1.0" />
     <PackageReference Include="MailKit" Version="1.10.1" />
+    <PackageReference Include="tslint" Version="5.0.0" />
   </ItemGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
