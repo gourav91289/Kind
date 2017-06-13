@@ -16,27 +16,8 @@ System.register(["@angular/router", "./components/login/login.component", "./com
         ],
         execute: function () {
             routes = [
-                {
-                    path: '',
-                    redirectTo: '',
-                    pathMatch: 'full'
-                },
-                {
-                    path: 'login',
-                    component: login_component_1.LoginComponent
-                },
-                {
-                    path: 'registration',
-                    component: registration_component_1.RegistrationComponent
-                }
-                //{
-                //    path: 'lounge/:id',
-                //    component: LoungeDetailComponent
-                //},
-                //{
-                //    path: 'explore/:id',
-                //    component: PlaceDetailComponent
-                //}
+                { path: '', redirectTo: '', pathMatch: 'full' },
+                { path: 'login', component: login_component_1.LoginComponent, data: { title: 'Login' } },
             ];
             exports_1("AppRoutingProviders", AppRoutingProviders = []);
             exports_1("AppRouting", AppRouting = router_1.RouterModule.forRoot(routes));

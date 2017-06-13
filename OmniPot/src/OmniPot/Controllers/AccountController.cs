@@ -64,7 +64,7 @@ public class AccountController : Controller
     //      this needs to come after authentication and provide roles/claims, whatever is needed 
     //      on the client to be stored in local storage.
 
-    [HttpPost("authenticate")]
+    [HttpPost("authenticate"), Produces("application/json")]
     public async Task<IActionResult> Login([FromBody] LoginViewModel user)
     {
         //DO NOT LOG THE USER'S PASSWORD HERE!

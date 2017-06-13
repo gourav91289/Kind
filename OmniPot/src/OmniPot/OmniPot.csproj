@@ -22,7 +22,6 @@
     <EmbeddedResource Remove="Controllers\client\**" />
     <None Remove="Controllers\Admin\**" />
     <None Remove="Controllers\client\**" />
-    <Compile Remove="Controllers\AccountController.cs" />
     <Compile Remove="Controllers\CountriesController.cs" />
     <Compile Remove="Controllers\HomeController.cs" />
     <Compile Remove="Controllers\ListController.cs" />
@@ -33,6 +32,23 @@
     <Content Remove="bower.json" />
     <None Remove=".bowerrc" />
     <Content Include="ClientApp\app\template\app.component.html" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.eot" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.svg" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.ttf" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.woff" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin-regular.woff2" />
+    <Content Include="wwwroot\fonts\montserrat-v10-latin.zip" />
     <Content Include="wwwroot\app\template\app.component.html" />
     <Content Include="wwwroot\styles.css" />
     <Content Include="wwwroot\systemjs.config.js" />
@@ -107,34 +123,6 @@
 
   <ItemGroup>
     <None Include="tsconfig.json" />
-    <None Include="wwwroot\app\app.module.js" />
-    <None Include="wwwroot\app\app.module.js.map" />
-    <None Include="wwwroot\app\app.module.ts" />
-    <None Include="wwwroot\app\app.routing.js" />
-    <None Include="wwwroot\app\app.routing.js.map" />
-    <None Include="wwwroot\app\app.routing.ts" />
-    <None Include="wwwroot\app\components\admin\users\registration.component.js" />
-    <None Include="wwwroot\app\components\admin\users\registration.component.js.map" />
-    <None Include="wwwroot\app\components\admin\users\registration.component.ts" />
-    <None Include="wwwroot\app\components\app.component.js" />
-    <None Include="wwwroot\app\components\app.component.js.map" />
-    <None Include="wwwroot\app\components\app.component.ts" />
-    <None Include="wwwroot\app\components\login\login.component.js" />
-    <None Include="wwwroot\app\components\login\login.component.js.map" />
-    <None Include="wwwroot\app\components\login\login.component.ts" />
-    <None Include="wwwroot\app\main.js" />
-    <None Include="wwwroot\app\main.js.map" />
-    <None Include="wwwroot\app\main.ts" />
-    <None Include="wwwroot\app\services\app.service.js" />
-    <None Include="wwwroot\app\services\app.service.js.map" />
-    <None Include="wwwroot\app\services\app.service.ts" />
-    <None Include="wwwroot\app\template\admin\users\registration.component.html" />
-    <None Include="wwwroot\app\viewmodels\account\login.js" />
-    <None Include="wwwroot\app\viewmodels\account\login.js.map" />
-    <None Include="wwwroot\app\viewmodels\account\login.ts" />
-    <None Include="wwwroot\app\viewmodels\admin\users\userdetails.js" />
-    <None Include="wwwroot\app\viewmodels\admin\users\userdetails.js.map" />
-    <None Include="wwwroot\app\viewmodels\admin\users\userdetails.ts" />
   </ItemGroup>
 
 </Project>
