@@ -65,7 +65,7 @@ System.register(["@angular/core", "@angular/forms"], function (exports_1, contex
             }());
             RegistrationComponent = __decorate([
                 core_1.Component({
-                    moduleId: module.id,
+                    //moduleId: module.id,
                     selector: "userreg",
                     templateUrl: './template/admin/users/registration.component.html',
                 }),

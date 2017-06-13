@@ -6,13 +6,13 @@ import { APP_BASE_HREF, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from "@angular/forms";
 import "rxjs/Rx";
 
 //Componets Import
 import { AppComponent } from "./app.component";
 import { ControlMessagesComponent } from './components/control-messages.component';
 import { LoginComponent } from "./components/login/login.component";
+//import { RegistrationComponent } from "./components/login/registration.component";
 import { RegistrationComponent } from "./components/admin/users/registration.component";
 
 //Service Import
@@ -27,16 +27,8 @@ import { AuthGuard } from './security/auth-guard.service';
     // directives, components, and pipes
     declarations: [
         AppComponent,
-        LoginComponent
-    ],
-    // modules
-    imports: [
-        BrowserModule,
-        HttpModule,
-        FormsModule,
-        RouterModule,
-        AppRouting
-    ],
+        LoginComponent, RegistrationComponent, ControlMessagesComponent
+    ],    
     // providers
     providers: [ ValidationService, AuthService, AuthGuard, Title, { provide: APP_BASE_HREF, useValue: '/' } ],
     bootstrap: [ AppComponent ]

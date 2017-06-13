@@ -8,6 +8,7 @@ import { User } from "../../../viewmodels/admin/users/userdetails.interface";
     //moduleId: module.id,
     selector: "userreg",
     templateUrl: './template/admin/users/registration.component.html',
+    //styleUrls: ['./css/bootstrap','./css/custom-stylesheet']
 })
 
 export class RegistrationComponent implements OnInit {    

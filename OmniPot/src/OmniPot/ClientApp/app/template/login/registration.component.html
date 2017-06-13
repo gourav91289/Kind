@@ -1,0 +1,252 @@
+﻿
+<section class="content">
+    <h1>Push In Menu Demo</h1>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)"><!--[formGroup]="myForm"--> 
+        <div class="main-white-block col-sm-12">
+            <h2 class="h2">New User Registration</h2>
+            <div class="row">
+                <div class="col-sm-12 col-md-11">
+                    <div class="form-horizontal">
+                        <div class="row offset-bottom-3">
+                            <div class="col-sm-12">
+                                <h3 class="h3 ">General</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                First Name<br>
+                                                <span class="text-muted">Storefront or Grow</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="John">
+                                                <control-messages [control]="myForm.controls.firstname" class="help-block"></control-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Middle Name<br>
+                                                <span class="text-muted">Optional</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="middlename" formControlName="middlename" placeholder="Middle Name">
+                                                <control-messages [control]="myForm.controls.middlename" class="help-block"></control-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                Last Name<br>
+                                                <span class="text-muted">Last Name</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="email" class="form-control" id="lastname" formControlName="lastname" placeholder="Last Name">
+                                                <control-messages [control]="myForm.controls.lastname" class="help-block"></control-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Date of Birth<br>
+                                                <span class="text-muted">MM/DD/YYYY</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="date" class="form-control" id="dateofbirth" formControlName="dataofbirth" placeholder="">
+                                                <control-messages [control]="myForm.controls.dateofbirth" class="help-block"></control-messages>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row offset-bottom-3">
+                            <div class="col-sm-12">
+                                <h3 class="h3 ">Contact Details</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                Country<br>
+                                                <span class="text-muted">Select Country</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" id="sel1">
+                                                    <option>United States of America</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                State<br>
+                                                <span class="text-muted">Select State</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Arizona</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                City<br>
+                                                <span class="text-muted">Select City</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" id="sel1">
+                                                    <option>City</option>
+                                                    <option>City 1</option>
+                                                    <option>City 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Zip Code<br>
+                                                <span class="text-muted">Zip Code</span>
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="pwd" placeholder="30000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Street<br>
+                                                <span class="text-muted">Enter Street</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="123 Main St">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Street 2<br>
+                                                <span class="text-muted">Enter Street</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="-">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Cell Phone No.<br>
+                                                <span class="text-muted">Valid Phone Number</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="+1 999 999 9999">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Other Phone No.<br>
+                                                <span class="text-muted">Valid Phone Number</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="+1 999 999 9999">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Email Address<br>
+                                                <span class="text-muted">You Email Address</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="john.doe@email.com">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row offset-bottom-3">
+                            <div class="col-sm-12">
+                                <h3 class="h3 ">Documents</h3>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                First Name<br>
+                                                <span class="text-muted">Storefront or Grow</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="email" class="form-control" id="email" placeholder="John">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Middle Name<br>
+                                                <span class="text-muted">Optional</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="Middle Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="email">
+                                                Last Name<br>
+                                                <span class="text-muted">Last Name</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="email" class="form-control" id="email" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3 col-md-4  col-sm-5" for="pwd">
+                                                Date of Birth<br>
+                                                <span class="text-muted">MM/DD/YYYY</span>
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pwd" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</section>

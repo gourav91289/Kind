@@ -6,7 +6,7 @@
             'invalidPasswordBlank': 'Please enter password',
             'invalidEmailAddress': 'Please enter valid email address',
             'invalidPassword': `Invalid password. Password must be at least 8 characters long and more`,
-            'minlength': `Minimum length ${validatorValue.requiredLength}`
+            'minlength': `Minimum length ${validatorValue.requiredLength}`,            
         };
 
         return config[validatorName];

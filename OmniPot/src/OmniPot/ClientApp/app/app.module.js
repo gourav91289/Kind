@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/platform-browser", "./app.routing", "@angular/common", "@angular/forms", "@angular/http", "rxjs/Rx", "./app.component", "./components/control-messages.component", "./components/login/login.component", "./services/validation.service", "./security/auth.service", "./security/auth-guard.service"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser", "./app.routing", "@angular/common", "@angular/forms", "@angular/http", "rxjs/Rx", "./app.component", "./components/control-messages.component", "./components/login/login.component", "./components/admin/users/registration.component", "./services/validation.service", "./security/auth.service", "./security/auth-guard.service"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7,7 +7,7 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, platform_browser_1, app_routing_1, common_1, forms_1, http_1, app_component_1, control_messages_component_1, login_component_1, validation_service_1, auth_service_1, auth_guard_service_1, AppModule;
+    var core_1, platform_browser_1, app_routing_1, common_1, forms_1, http_1, app_component_1, control_messages_component_1, login_component_1, registration_component_1, validation_service_1, auth_service_1, auth_guard_service_1, AppModule;
     return {
         setters: [
             function (core_1_1) {
@@ -39,8 +39,11 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
             function (login_component_1_1) {
                 login_component_1 = login_component_1_1;
             },
-            function (app_routing_1_1) {
-                app_routing_1 = app_routing_1_1;
+            function (registration_component_1_1) {
+                registration_component_1 = registration_component_1_1;
+            },
+            function (validation_service_1_1) {
+                validation_service_1 = validation_service_1_1;
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
@@ -62,15 +65,7 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
                     // directives, components, and pipes
                     declarations: [
                         app_component_1.AppComponent,
-                        login_component_1.LoginComponent
-                    ],
-                    // modules
-                    imports: [
-                        platform_browser_1.BrowserModule,
-                        http_1.HttpModule,
-                        forms_1.FormsModule,
-                        router_1.RouterModule,
-                        app_routing_1.AppRouting
+                        login_component_1.LoginComponent, registration_component_1.RegistrationComponent, control_messages_component_1.ControlMessagesComponent
                     ],
                     // providers
                     providers: [validation_service_1.ValidationService, auth_service_1.AuthService, auth_guard_service_1.AuthGuard, platform_browser_1.Title, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
