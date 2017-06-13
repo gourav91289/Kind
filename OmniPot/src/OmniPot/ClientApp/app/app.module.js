@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/platform-browser", "./app.routing", "@angular/common", "@angular/forms", "@angular/http", "rxjs/Rx", "./app.component", "./components/control-messages.component", "./components/login/login.component", "./components/admin/users/registration.component", "./services/validation.service", "./security/auth.service", "./security/auth-guard.service"], function (exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser", "./app.routing", "@angular/common", "@angular/forms", "@angular/http", "rxjs/Rx", "./app.component", "./components/control-messages.component", "./components/login/login.component", "./components/login/registration.component", "./services/validation.service", "./security/auth.service", "./security/auth-guard.service"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7,7 +7,7 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, platform_browser_1, app_routing_1, common_1, forms_1, http_1, app_component_1, control_messages_component_1, login_component_1, registration_component_1, validation_service_1, auth_service_1, auth_guard_service_1, AppModule;
+    var core_1, platform_browser_1, app_routing_1, common_1, forms_1, forms_2, http_1, app_component_1, control_messages_component_1, login_component_1, registration_component_1, validation_service_1, auth_service_1, auth_guard_service_1, AppModule;
     return {
         setters: [
             function (core_1_1) {
@@ -24,6 +24,7 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
             },
             function (forms_1_1) {
                 forms_1 = forms_1_1;
+                forms_2 = forms_1_1;
             },
             function (http_1_1) {
                 http_1 = http_1_1;
@@ -61,7 +62,7 @@ System.register(["@angular/core", "@angular/platform-browser", "./app.routing", 
             AppModule = __decorate([
                 core_1.NgModule({
                     // modules
-                    imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routing_1.AppRouting],
+                    imports: [platform_browser_1.BrowserModule, forms_2.ReactiveFormsModule, forms_1.FormsModule, http_1.HttpModule, app_routing_1.AppRouting],
                     // directives, components, and pipes
                     declarations: [
                         app_component_1.AppComponent,

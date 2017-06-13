@@ -1,5 +1,5 @@
 ﻿import { Component ,OnInit} from "@angular/core";
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule  } from '@angular/forms';
 //import { User } from "../../../viewmodels/login/userdetails.interface";
 import { userdetail } from "../../viewmodels/account/userdetails.interface";
 

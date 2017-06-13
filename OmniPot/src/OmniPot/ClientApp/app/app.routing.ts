@@ -3,8 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from './security/auth-guard.service';
 
 import { LoginComponent } from "./components/login/login.component";
-//import { RegistrationComponent } from "./components/login/registration.component";
-import { RegistrationComponent } from "./components/admin/users/registration.component";
+import { RegistrationComponent } from "./components/login/registration.component";
+//import { RegistrationComponent } from "./components/admin/users/registration.component";
 
 const routes: Routes = [
     {  path: '', redirectTo: '',  pathMatch: 'full'  },

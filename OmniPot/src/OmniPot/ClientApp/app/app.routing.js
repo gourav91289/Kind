@@ -1,4 +1,4 @@
-System.register(["@angular/router", "./components/login/login.component", "./components/admin/users/registration.component"], function (exports_1, context_1) {
+System.register(["@angular/router", "./components/login/login.component", "./components/login/registration.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var router_1, login_component_1, registration_component_1, routes, AppRoutingProviders, AppRouting;
@@ -15,6 +15,7 @@ System.register(["@angular/router", "./components/login/login.component", "./com
             }
         ],
         execute: function () {
+            //import { RegistrationComponent } from "./components/admin/users/registration.component";
             routes = [
                 { path: '', redirectTo: '', pathMatch: 'full' },
                 { path: 'login', component: login_component_1.LoginComponent, data: { title: 'Login' } },
