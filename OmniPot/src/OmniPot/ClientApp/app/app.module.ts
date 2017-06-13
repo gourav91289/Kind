@@ -15,6 +15,7 @@ import { ControlMessagesComponent } from './components/control-messages.componen
 import { LoginComponent } from "./components/login/login.component";
 import { RegistrationComponent } from "./components/login/registration.component";
 //import { RegistrationComponent } from "./components/admin/users/registration.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
 //Service Import
 import { ValidationService } from './services/validation.service';
@@ -26,10 +27,7 @@ import { AuthGuard } from './security/auth-guard.service';
     // modules
     imports: [BrowserModule, ReactiveFormsModule,FormsModule,  HttpModule, AppRouting ],
     // directives, components, and pipes
-    declarations: [
-        AppComponent,
-        LoginComponent, RegistrationComponent, ControlMessagesComponent
-    ],    
+    declarations: [ControlMessagesComponent, AppComponent, LoginComponent, DashboardComponent ],    
     // providers
     providers: [ ValidationService, AuthService, AuthGuard, Title, { provide: APP_BASE_HREF, useValue: '/' } ],
     bootstrap: [ AppComponent ]
