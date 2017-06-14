@@ -39,8 +39,9 @@ namespace OmniPot.Data.Models
         public ICollection<Client> Clients { get; set; } = new List<Client>();
 
         public ICollection<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>();
+        public ICollection<UserLocation> UserLocations { get; set; } = new List<UserLocation>();
 
-       // public ICollection<TaxItem> TaxItems { get; set; } = new List<TaxItem>();
+        // public ICollection<TaxItem> TaxItems { get; set; } = new List<TaxItem>();
         //TODO: Determine if we want inventory relations coming from tenant
     }
 }

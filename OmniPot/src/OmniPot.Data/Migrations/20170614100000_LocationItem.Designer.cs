@@ -9,9 +9,10 @@ using OmniPot.Data.Models;
 namespace OmniPot.Data.Migrations
 {
     [DbContext(typeof(KindDbContext))]
-    partial class KindDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170614100000_LocationItem")]
+    partial class LocationItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.3")
@@ -575,8 +576,6 @@ namespace OmniPot.Data.Migrations
 
                     b.Property<bool>("IsSalable");
 
-                    b.Property<Guid>("LocationTypeId");
-
                     b.Property<Guid>("ModifiedByUserId");
 
                     b.Property<DateTime>("ModifiedUtc");
@@ -608,48 +607,11 @@ namespace OmniPot.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("LocationTypeId");
-
                     b.HasIndex("ParentLocationId");
 
                     b.HasIndex("TenantId");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("OmniPot.Data.Models.LocationType", b =>
-                {
-                    b.Property<Guid>("LocationTypeId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CreatedByUserId");
-
-                    b.Property<DateTime>("CreatedUtc");
-
-                    b.Property<Guid?>("ItemTypeId");
-
-                    b.Property<string>("LocationTypeName")
-                        .HasMaxLength(100);
-
-                    b.Property<Guid>("ModifiedByUserId");
-
-                    b.Property<DateTime>("ModifiedUtc");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("State");
-
-                    b.Property<Guid>("TenantId");
-
-                    b.HasKey("LocationTypeId");
-
-                    b.HasIndex("ItemTypeId");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("LocationType");
                 });
 
             modelBuilder.Entity("OmniPot.Data.Models.Lot", b =>
@@ -1436,40 +1398,6 @@ namespace OmniPot.Data.Migrations
                     b.ToTable("UploadDocuments");
                 });
 
-            modelBuilder.Entity("OmniPot.Data.Models.UserLocation", b =>
-                {
-                    b.Property<Guid>("UserLocationId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CreatedByUserId");
-
-                    b.Property<DateTime>("CreatedUtc");
-
-                    b.Property<Guid>("LocationId");
-
-                    b.Property<Guid>("ModifiedByUserId");
-
-                    b.Property<DateTime>("ModifiedUtc");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("State");
-
-                    b.Property<Guid>("TenantId");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("UserLocationId");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("UserLocation");
-                });
-
             modelBuilder.Entity("OmniPot.Data.Models.Vehicle", b =>
                 {
                     b.Property<Guid>("VehicleId")
@@ -1741,11 +1669,6 @@ namespace OmniPot.Data.Migrations
                         .WithMany("AllowedLocations")
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("OmniPot.Data.Models.LocationType", "LocationType")
-                        .WithMany("Locations")
-                        .HasForeignKey("LocationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("OmniPot.Data.Models.Location", "ParentLocation")
                         .WithMany("Children")
                         .HasForeignKey("ParentLocationId")
@@ -1753,18 +1676,6 @@ namespace OmniPot.Data.Migrations
 
                     b.HasOne("OmniPot.Data.Models.Tenant", "Tenant")
                         .WithMany("Locations")
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OmniPot.Data.Models.LocationType", b =>
-                {
-                    b.HasOne("OmniPot.Data.Models.ItemType")
-                        .WithMany("LocationTypes")
-                        .HasForeignKey("ItemTypeId");
-
-                    b.HasOne("OmniPot.Data.Models.Tenant", "Tenant")
-                        .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -1933,19 +1844,6 @@ namespace OmniPot.Data.Migrations
                     b.HasOne("OmniPot.Data.Models.Vendor")
                         .WithMany("Documents")
                         .HasForeignKey("VendorId");
-                });
-
-            modelBuilder.Entity("OmniPot.Data.Models.UserLocation", b =>
-                {
-                    b.HasOne("OmniPot.Data.Models.Location", "Location")
-                        .WithMany("UserLocations")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OmniPot.Data.Models.Tenant", "Tenant")
-                        .WithMany("UserLocations")
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OmniPot.Data.Models.Vehicle", b =>

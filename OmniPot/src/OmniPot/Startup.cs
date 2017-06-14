@@ -260,7 +260,7 @@ namespace OmniPot
             {
                 if (env.IsDevelopment())
                 {
-                    throw;
+                    //throw;
                 }
                 /// I just want to eat this for now ==>throw;
             }

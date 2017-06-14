@@ -22,7 +22,7 @@ import { AuthGuard } from './security/auth-guard.service';
 
 @NgModule({
     // modules
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRouting ],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRouting],
     // directives, components, and pipes
     declarations: [ControlMessagesComponent, AppComponent, LoginComponent, DashboardComponent ],    
     // providers

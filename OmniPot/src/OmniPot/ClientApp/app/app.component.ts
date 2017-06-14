@@ -14,7 +14,7 @@ import { AuthService } from './security/auth.service';
 export class AppComponent implements OnInit{
     title = "Agrisoft";
 
-    public constructor(private router: Router, private titleService: Title, private http: Http, private authService: AuthService) { }
+    public constructor(private router: Router, private titleService: Title, private http: Http, private authService: AuthService ) { }
 
     ngOnInit() {        
 

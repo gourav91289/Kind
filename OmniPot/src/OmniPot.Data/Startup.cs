@@ -30,11 +30,14 @@ namespace OmniPot.Data
         {
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
-    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OmniPot;Trusted_Connection=True;MultipleActiveResultSets=true")
-           .UseInternalServiceProvider(serviceProvider));
+    //options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OmniPot;Trusted_Connection=True;MultipleActiveResultSets=true")
+    options.UseSqlServer("Server=NTZ-MANOJSINGH\\MSSQL;Database=OmniPot;User Id=sa;Password=P@55w0rd;MultipleActiveResultSets=true")
+    
+                         .UseInternalServiceProvider(serviceProvider));
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<KindDbContext>((serviceProvider, options) =>
-    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OmniPot;Trusted_Connection=True;MultipleActiveResultSets=true")
+       // options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OmniPot;Trusted_Connection=True;MultipleActiveResultSets=true")
+       options.UseSqlServer("Server=NTZ-MANOJSINGH\\MSSQL;Database=OmniPot;User Id=sa;Password=P@55w0rd;MultipleActiveResultSets=true")
            .UseInternalServiceProvider(serviceProvider));
             services.AddTransient<IUserContext, SeedUserContext>();
         }
