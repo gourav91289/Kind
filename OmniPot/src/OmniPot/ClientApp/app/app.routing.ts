@@ -4,12 +4,14 @@ import { AuthGuard } from './security/auth-guard.service';
 
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { TokenVerifyComponent } from "./components/token.verify.component";
 
 const routes: Routes = [
-    // otherwise redirect to home
-    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    // Verifying token
+    { path: '', component: TokenVerifyComponent, canActivate: [AuthGuard] },
+
+    // App views
     { path: 'login', component: LoginComponent },
-    // home route protected by auth guard
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     //{ path: '', redirectTo: '', pathMatch: 'full' },    
   //{ path: 'dashboard', component:DashboardComponent, data: { title: 'User Dashboard' }, canActivate: [AuthGuard] },

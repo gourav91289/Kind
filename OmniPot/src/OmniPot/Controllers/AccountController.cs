@@ -64,7 +64,7 @@ public class AccountController : Controller
     //      this needs to come after authentication and provide roles/claims, whatever is needed 
     //      on the client to be stored in local storage.
 
-    [HttpPost("authenticate"), Produces("application/json")]
+    [HttpPost("authenticate")]
     public async Task<IActionResult> Login([FromBody] LoginViewModel user)
     {
         //DO NOT LOG THE USER'S PASSWORD HERE!
@@ -332,7 +332,7 @@ Reset password:
         return Redirect(url);
     }
 
-    [HttpGet("getUserRole")]
+    [HttpGet("GetUserRole")]
     public async Task<IActionResult> GetRoles()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -349,7 +349,6 @@ Reset password:
 
         return Ok(user);
     }
-
 
     [HttpGet("GetAllLicenses")]
     [Authorize(Roles = "SuperAdmin,StateProcessor,KindProcessor")]

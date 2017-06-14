@@ -209,14 +209,7 @@ namespace OmniPot
                         {
                             var role = roleManager.CreateAsync(new IdentityRole("SuperAdmin")).Result;
                             //TODO: Seed additional roles here.                
-                        }
-
-                        if (!context.Roles.Any(r => r.NormalizedName == "STATEPROCESSOR"))
-                            roleManager.CreateAsync(new IdentityRole("StateProcessor")).RunSynchronously();
-                        if (!context.Roles.Any(r => r.NormalizedName == "KINDPROCESSOR"))
-                            roleManager.CreateAsync(new IdentityRole("KindProcessor")).RunSynchronously();
-                        if (!context.Roles.Any(r => r.NormalizedName == "STATEADMIN"))
-                            roleManager.CreateAsync(new IdentityRole("StateAdmin")).RunSynchronously();
+                        }                     
 
                         if (!context.Users.Any(e => e.UserName == "blaird@gmail.com"))
                         {
@@ -259,7 +252,8 @@ namespace OmniPot
             {
                 if (env.IsDevelopment())
                 {
-                    throw;
+                    //uncomment below while moving to the staging or production
+                   // throw;
                 }
                 /// I just want to eat this for now ==>throw;
             }
@@ -272,6 +266,29 @@ namespace OmniPot
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.ApplyRolesToDevUsers();
+
+                //uncomment below while moving to the staging or production
+                #region comment
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    serviceScope.ServiceProvider.GetService<Data.Identity.ApplicationDbContext>().Database.Migrate();
+                    serviceScope.ServiceProvider.GetService<Data.KindDbContext>().Database.Migrate();
+
+                    var userManager = app.ApplicationServices.GetService<UserManager<ApplicationUser>>();
+
+                    var context = serviceScope.ServiceProvider.GetService<Data.Identity.ApplicationDbContext>();
+                    if (!context.Users.Any(e => e.UserName == "blaird@gmail.com"))
+                    {
+                        //HACK: Should never ever call async methods within static voids.
+                        var user = new ApplicationUser { UserName = "blaird@gmail.com", Email = "blaird@gmail.com", AuthyUserId = "21459770" };
+                        var foo = userManager.CreateAsync(user, "Apple123!").Result;
+                        var bar = userManager.SetPhoneNumberAsync(user, "7856408466").Result;
+                        var baz = userManager.SetTwoFactorEnabledAsync(user, true).Result;
+                        var baaz = userManager.SetLockoutEnabledAsync(user, false).Result;
+                        var baaaz = userManager.AddToRoleAsync(user, "SuperAdmin").Result;
+                    }
+                }
+                #endregion
 
             }
             else

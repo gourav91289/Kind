@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='default' />
+/// <binding />
 var gulp = require('gulp'),
     gp_clean = require('gulp-clean'),
     gp_concat = require('gulp-concat'),
