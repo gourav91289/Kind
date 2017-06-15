@@ -175,6 +175,10 @@ form.ng-invalid {
     border: 0;
 }
 
+.ng-untouched {
+    border: 1px solid #ccc;
+}
+
 .ng-invalid {
     border: 2px solid #a94442;
 }

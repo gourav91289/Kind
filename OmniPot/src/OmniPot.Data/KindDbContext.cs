@@ -43,61 +43,47 @@ namespace OmniPot.Data
         {
         }
 
+        #region for DB Models
+
+        #region New DB Models Creation
+        public DbSet<City> Cities { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
+        public DbSet<UserInvitation> UserInvitations { get; set; }
+        public DbSet<UserLocation> UserLocations { get; set; }
+        public DbSet<LocationType> LocationTypes { get; set; }
+        public DbSet<LocationItem> LocationItems { get; set; }
+        #endregion
+
         public DbSet<AppConnection> Connections { get; set; }
-
         public DbSet<AppMessage> Messages { get; set; }
-
         public DbSet<Country> Countries { get; set; }
-
         public DbSet<StateOrProvince> StatesOrProvinces { get;set; }
-
         public DbSet<Address> Addresses { get; set; }
-
         public DbSet<Tenant> Tenants { get; set; }
-
         public DbSet<Location> Locations { get; set; }
-
         public DbSet<InventoryItem> InventoryItems { get; set; }
-
         public DbSet<Employee> Employees { get; set; }
-
-        public DbSet<Vehicle> Vehicles { get; set; }
-        
+        public DbSet<Vehicle> Vehicles { get; set; }        
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<UnitOfMeasure> UnitsOfMeasure { get; set; }
-
         public DbSet<UploadDocument> UploadDocuments { get; set; }
-
         public DbSet<Vendor> Vendors { get; set; }
-
         public DbSet<Client> Clients { get; set; }
-
         public DbSet<TaxGroup> TaxGroups { get; set; }
-
         public DbSet<TaxGroupItem> TaxGroupItems { get; set; }
-
         public DbSet<TaxItem> TaxItems { get; set; }
-
         public DbSet<TestDefinition> TestDefinitions { get; set; }
-
         public DbSet<TestRule> TestRules { get; set; }
-
         public DbSet<TestResult> TestResults { get; set; }
-
         public DbSet<Batch> Batches { get; set; }
-
         public DbSet<Lot> Lots { get; set; }
-
         public DbSet<Person> People { get; set; }
-
         public DbSet<PlantTag> PlantTags { get; set; }
-
         public DbSet<PlantTagOrder> PlantTagOrders { get; set; }
-
         public DbSet<PlantTagOrderItem> PlantTagOrderItems { get; set; }
         //This is a lookup only, it's an extract that comes from RI for license lookups
         public DbSet<StateLicense> StateLicenses { get; set; }
-
         public IQueryable<PlantTag> AvailablePlantTags
         {
             get
@@ -105,18 +91,17 @@ namespace OmniPot.Data
                 return PlantTags.Include(t => t.ParentRfidTag).Where(t => t.State == TrackableEntityState.IsActive && t.IssuedUtc == null && t.ParentRfidTag.DestroyedUtc == null);
             }
         }
-        
+        #endregion
+
         public override int SaveChanges()
         {
-            UpdateTimestamps();
-            
+            UpdateTimestamps();            
             return base.SaveChanges();
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
             UpdateTimestamps(); 
-
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
@@ -145,8 +130,7 @@ namespace OmniPot.Data
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-            
+        {            
             //Tenant display names and route names need to be unique across the app
             builder.Entity<Tenant>()
                 .HasAlternateKey(t => t.DisplayName)                

@@ -9,6 +9,8 @@ namespace OmniPot.Data.Models
 {
     public class LocationItem : EntityBase
     {
+        public Guid LocationItemId { get; set; }
+
         public Guid LocationId { get; set; }
 
         [ForeignKey("LocationId")]
@@ -17,5 +19,13 @@ namespace OmniPot.Data.Models
 
         [ForeignKey("ItemTypeId")]
         public ItemType ItemType { get; set; }
+
+        public Guid? ItemTypeId { get; set; }
+
+        [ForeignKey("ItemTypeId")]
+        public ItemType ItemType { get; set; }
+
+        public ICollection<ItemType> ItemTypes { get; set; } = new List<ItemType>();
+
     }
 }

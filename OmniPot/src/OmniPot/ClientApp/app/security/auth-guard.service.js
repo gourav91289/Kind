@@ -34,7 +34,10 @@ System.register(["@angular/core", "@angular/router", "./auth.service"], function
                         this.router.navigate(['/login']);
                         return false;
                     }
-                    return true;
+                    else {
+                        this.router.navigate(['/dashboard']);
+                        return true;
+                    }
                 };
                 return AuthGuard;
             }());

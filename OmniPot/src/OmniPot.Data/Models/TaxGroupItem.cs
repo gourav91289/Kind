@@ -7,6 +7,7 @@ namespace OmniPot.Data.Models
 {
     public class TaxGroupItem
     {
+        public Guid TaxGroupItemId { get; set; }
         public Guid TaxGroupId { get; set; }
         public TaxGroup TaxGroup { get; set; }
         public Guid TaxItemId { get; set; }
