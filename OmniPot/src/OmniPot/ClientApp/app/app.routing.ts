@@ -14,8 +14,6 @@ const routes: Routes = [
     // App views
     { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-
-
     //{ path: '', redirectTo: '', pathMatch: 'full' },    
   //{ path: 'dashboard', component:DashboardComponent, data: { title: 'User Dashboard' }, canActivate: [AuthGuard] },
   //{ path: 'explore/:id',component: PlaceDetailComponent }
