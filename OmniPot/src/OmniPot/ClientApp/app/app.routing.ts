@@ -11,8 +11,9 @@ const routes: Routes = [
     // otherwise redirect to home
     { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
     // home route protected by auth guard
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'registration', component: RegistrationComponent},
     //{ path: '', redirectTo: '', pathMatch: 'full' },    
   //{ path: 'dashboard', component:DashboardComponent, data: { title: 'User Dashboard' }, canActivate: [AuthGuard] },
   //{ path: 'explore/:id',component: PlaceDetailComponent }

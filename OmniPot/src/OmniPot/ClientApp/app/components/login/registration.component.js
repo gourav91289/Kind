@@ -72,7 +72,7 @@ System.register(["@angular/core", "@angular/forms"], function (exports_1, contex
                     //moduleId: module.id,
                     selector: "userreg",
                     templateUrl: './template/login/registration.component.html',
-                    styleUrls: ['./css/bootstrap', './css/custom-stylesheet']
+                    styleUrls: ['./css/bootstrap', './css/custom-stylesheet'],
                 }),
                 __metadata("design:paramtypes", [forms_1.FormBuilder])
             ], RegistrationComponent);

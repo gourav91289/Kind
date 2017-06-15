@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit} from "@angular/core";
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { AuthService } from './security/auth.service';
 

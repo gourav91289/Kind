@@ -1,6 +1,7 @@
 ﻿import { Component ,OnInit} from "@angular/core";
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User } from "../../../viewmodels/admin/users/userdetails.interface";
+import { DropDownList } from '../../../viewmodels/common/dropDownList';
 
 //declare var module: {  id: string;}
 

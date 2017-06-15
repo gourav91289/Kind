@@ -30,6 +30,8 @@ var srcPaths = {
         'ClientApp/app/images/**/*.gif',
         'ClientApp/app/images/**/*.jpeg'
     ],
+    template_html: [
+        'ClientApp/app/**/*.html'],
     template: [
         'ClientApp/app/template/**/*.html'],
     bootstrap: [
@@ -51,6 +53,7 @@ var destPaths = {
     images: 'wwwroot/images/',
     bootstrap: 'wwwroot/js/bootstrap/',
     template: 'wwwroot/template/',
+    template_html: 'wwwroot/app/',
     js_angular: 'wwwroot/js/@angular/',
     js_rxjs: 'wwwroot/js/rxjs/'
 };
@@ -105,6 +108,16 @@ gulp.task('template', ['template_clean'], function () {
         .pipe(gp_sourcemaps.write('/'))
         .pipe(gulp.dest(destPaths.template));
 });
+
+// Copy all HTML files from external libraries to wwwroot/template
+gulp.task('template_html', function () {
+    return gulp.src(srcPaths.template_html)
+        .pipe(gp_sourcemaps.init())
+        .pipe(gp_minifyHtml())
+        .pipe(gp_sourcemaps.write('/'))
+        .pipe(gulp.dest(destPaths.template_html));
+});
+
 
 // Copy all HTML files from external libraries to wwwroot/css
 gulp.task('minify-css', ['css_clean'] , function () {

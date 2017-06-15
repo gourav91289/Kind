@@ -36,6 +36,14 @@ export class AppService {
             .catch(this.handleError);
     }   
 
+    getCountriesList()
+    {
+        var url = this.placeBaseUrl + "GetMostViewed/";        
+        return this.http.get(url)            
+            .map(response => response.json())            
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || "Server error");

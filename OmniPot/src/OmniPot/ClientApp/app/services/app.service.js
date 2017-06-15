@@ -59,6 +59,12 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "../securi
                         .map(function (response) { return response.json(); })
                         .catch(this.handleError);
                 };
+                AppService.prototype.getCountriesList = function () {
+                    var url = this.placeBaseUrl + "GetMostViewed/";
+                    return this.http.get(url)
+                        .map(function (response) { return response.json(); })
+                        .catch(this.handleError);
+                };
                 AppService.prototype.handleError = function (error) {
                     console.error(error);
                     return Observable_1.Observable.throw(error.json().error || "Server error");
