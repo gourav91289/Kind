@@ -9,9 +9,10 @@ using OmniPot.Data.Models;
 namespace OmniPot.Data.Migrations
 {
     [DbContext(typeof(KindDbContext))]
-    partial class KindDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170614115335_UserLocationAndLocationType")]
+    partial class UserLocationAndLocationType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.3")

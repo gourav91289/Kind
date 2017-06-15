@@ -46,6 +46,7 @@ namespace OmniPot.Data.Models
         public Guid? VehicleId { get; set; }
         [ForeignKey("VehicleId")]
         public Vehicle Vehicle { get; set; }
+
         public ICollection<Location> AllowedLocations { get; set; } = new List<Location>();
 
         public ICollection<UploadDocument> Documents { get; set; } = new List<UploadDocument>();

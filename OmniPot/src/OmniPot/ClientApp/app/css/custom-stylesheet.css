@@ -650,6 +650,10 @@ section.content {
       	background-color: rgba(0,0,0,0.02);
 }
 
+.ng-untouched {
+    border: 1px solid #ccc;
+}
+
 .ng-invalid {
     border: 2px solid #a94442;
 }

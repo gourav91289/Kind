@@ -17,5 +17,6 @@ namespace OmniPot.Data.Models
         [ForeignKey("ParentItemTypeId")]
         public ItemType ParentType { get; set; }
         public ICollection<ItemType> Children { get; set; } = new List<ItemType>();
+        public ICollection<LocationType> LocationTypes { get; set; } = new List<LocationType>();
     }
 }

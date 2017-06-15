@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-lg-4 col-sm-6 col-lg-offset-1 login-font">
-        <form [formGroup]="loginForm" (submit)="saveUser()">
+        <form [formGroup]="loginForm" novalidate (submit)="login(loginForm.value)">
             <h1 class="h1">Log In</h1>
             <span class="font-size11">Please enter your username and password to login</span>
 
@@ -17,19 +17,17 @@
                 <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Password" title="Please enter your password">
                 <control-messages [control]="loginForm.controls.password" class="help-block"></control-messages>
             </div>
-            <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
+            <div id="loginErrorMsg" *ngIf="isLoginError" class="alert alert-danger">{{loginErrorMessage}}</div>
             <div class="checkbox">
                 <label class="font-size11">
-                    <input type="checkbox" name="remember" id="remember">
-                    Remember login
-                </label><a href="#" class="pull-right font-size11">Forgot Password</a>
-
+                    <input type="checkbox" name="remember" id="remember" formControlName="rememberMe">Remember login
+                </label>
+                <a href="#" class="pull-right font-size11">Forgot Password</a>
             </div>
             <button type="submit" class="btn btn-primary btn-custom offset-top-2 offset-bottom-3"
                     [disabled]="!loginForm.valid">
                 <i class="fa fa-angle-right"></i>Log In
             </button>
-
         </form>
         <hr />
         <a href="#" class="font-size14">Need help with login?</a><br>

@@ -10,8 +10,10 @@ namespace OmniPot.Data.Models
     public class Location : EntityBase
     {
         public Guid LocationId { get; set; }
+
         [StringLength(50)]
         public string DisplayName { get; set; }
+
         [StringLength(50)]
         public string RouteName { get; set; }
 
@@ -31,16 +33,27 @@ namespace OmniPot.Data.Models
         [ForeignKey("ParentLocationId")]
         public Location ParentLocation { get; set; }
 
+        public Guid? LocationTypeId { get; set; }
+
+        [ForeignKey("LocationTypeId")]
+        public LocationType LocationType { get; set; }
+
         /// <summary>
         /// Makes the determination as to whether this location can have salable inventory pulled from it. I.E., a 
         /// sales counter location, not necessarily a backroom location.
         /// </summary>
         public bool IsSalable { get; set; }
 
+        public Guid LocationTypeId { get; set; }
+        public LocationType LocationType { get; set; }
+
         public ClassificationType ClassificationType { get; set; }
         public ICollection<Location> Children { get; set; } = new List<Location>();
+        public ICollection<LocationItem> LocationItems { get; set; } = new List<LocationItem>();
 
         public ICollection<Batch> Batches { get; set; } = new List<Batch>();
         public ICollection<Lot> Lots { get; set; } = new List<Lot>();
-    }
+
+        public ICollection<UserLocation> UserLocations { get; set; } = new List<UserLocation>();
+     }
 }

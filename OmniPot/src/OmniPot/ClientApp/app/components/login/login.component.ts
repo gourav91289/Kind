@@ -1,14 +1,22 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿// importing angular components
+import { Component, OnInit, AfterContentInit } from "@angular/core";
 import { FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
+
+// importing Loginviewmodel
 import { LoginViewModel } from '../../viewmodels/account/login.interface';
+
+// importing services
 import { ValidationService } from '../../services/validation.service';
 import { AuthService } from '../../security/auth.service';
 
+declare var __moduleName: string;
+
 @Component({
     selector: "login",
+    moduleId: __moduleName,
     template: `<div class="container">
     <div class="col-lg-5 col-sm-6 col-lg-offset-1 child">
         <img [src]="logoPath" style="margin:40% 0 0 0" class="img-responsive" alt="AGRSoft">
@@ -47,10 +55,9 @@ import { AuthService } from '../../security/auth.service';
 
 export class LoginComponent implements OnInit {
     loginForm: any;
-    logoPath: string;
-    public isLoginError: boolean;
+    logoPath: string;    
     loginErrorMessage: string;
-    public submitted: boolean;
+    public isLoginError: boolean;
     public events: any[] = [];
 
     constructor(
@@ -63,6 +70,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+         // intializing the form with validation
         this.loginForm = this.formBuilder.group({
             'email': ['', [Validators.required, ValidationService.emailValidator]],
             'password': ['', [Validators.required, ValidationService.passwordValidator]],
@@ -76,17 +84,24 @@ export class LoginComponent implements OnInit {
         this.subcribeToFormChanges();
     }
 
+
+    //When the components loaded
+    ngAfterViewInit() {
+        this.loginForm.first.nativeElement.focus();
+    }
+
     // wrapper to the Angular title service.
     setTitle(newTitle: string) {
         this.titleService.setTitle(newTitle);
     }
 
+     // form change event.
     subcribeToFormChanges() {
-        const myFormStatusChanges$ = this.loginForm.statusChanges;
-        const myFormValueChanges$ = this.loginForm.valueChanges;
+        const formStatusChanges = this.loginForm.statusChanges;
+        const formValueChanges = this.loginForm.valueChanges;
 
-        myFormStatusChanges$.subscribe(x => this.events.push({ event: 'STATUS_CHANGED', object: x }));
-        myFormValueChanges$.subscribe(x => this.events.push({ event: 'VALUE_CHANGED', object: x }));
+        formStatusChanges.subscribe(x => this.events.push({ event: 'STATUS_CHANGED', object: x }));
+        formValueChanges.subscribe(x => this.events.push({ event: 'VALUE_CHANGED', object: x }));
     }
 
     // post the user's login details to server, if authenticated token is returned, then token is saved to session storage
@@ -95,13 +110,14 @@ export class LoginComponent implements OnInit {
         this.isLoginError = false;
         if (this.loginForm.dirty && this.loginForm.valid) {            
             this.http.post('/api/account/authenticate', user, { headers: this.authService.contentHeaders() })
-                .subscribe(response => {
-                    // success, save the token to session storage
+                .subscribe(response => {                   
                     var result = response.json();
+                     // success, save the token to session storage
                     if (result.Succeeded) {
                         this.authService.login(user, result);
                         this.router.navigate(['/dashboard']);
                     }
+                     // success failed, show error message
                     else {
                         this.isLoginError = true;
                         this.loginErrorMessage = result.Message;
