@@ -44,9 +44,6 @@ namespace OmniPot.Data.Models
         /// </summary>
         public bool IsSalable { get; set; }
 
-        public Guid LocationTypeId { get; set; }
-        public LocationType LocationType { get; set; }
-
         public ClassificationType ClassificationType { get; set; }
         public ICollection<Location> Children { get; set; } = new List<Location>();
         public ICollection<LocationItem> LocationItems { get; set; } = new List<LocationItem>();

@@ -1,5 +1,4 @@
 ﻿using System;
-<<<<<<< HEAD
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,29 +15,21 @@ namespace OmniPot.Data.Models
     public class UserLocation : EntityBase
     {
         public Guid UserLocationId { get; set; }
-
-        public Guid UserId { get; set; }
-        [ForeignKey("LocationId")]
-        public Guid LocationId { get; set; }
-        public Location Location { get; set; }
-
-        [ForeignKey("TenantId")]
-        public Guid TenantId { get; set; }
-        public Tenant Tenant { get; set; }
-
-        //public Guid UserId { get; set; }
-
-        //[ForeignKey("UserId")]
-        //public ApplicationUser User { get; set; }
-
+       
         public Guid LocationId { get; set; }
 
         [ForeignKey("LocationId")]
         public Location Location { get; set; }
-
+       
         public Guid TenantId { get; set; }
 
         [ForeignKey("TenantId")]
         public Tenant Tenant { get; set; }
+
+        public Guid Id { get; set; }
+
+        [ForeignKey("Id")]
+        public ApplicationUser User { get; set; }
+
     }
 }

@@ -15,15 +15,12 @@ namespace OmniPot.Data.Models
 
         [ForeignKey("LocationId")]
         public Location Location { get; set; }
-        public Guid ItemTypeId { get; set; }
-
-        [ForeignKey("ItemTypeId")]
+   
         public ItemType ItemType { get; set; }
 
         public Guid? ItemTypeId { get; set; }
 
         [ForeignKey("ItemTypeId")]
-        public ItemType ItemType { get; set; }
 
         public ICollection<ItemType> ItemTypes { get; set; } = new List<ItemType>();
 

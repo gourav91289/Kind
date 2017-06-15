@@ -61,8 +61,6 @@ System.register(["@angular/core", "@angular/forms"], function (exports_1, contex
                     alert(model);
                     if (this.myForm.dirty && this.myForm.valid) {
                         alert('hi');
-                        //this.submitted = true;
-                        //console.log(model, isValid);
                     }
                 };
                 return RegistrationComponent;

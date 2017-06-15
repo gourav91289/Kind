@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "baf185c301db9a95c52081069d7eb2c204e6067a"
+    "signature": "5d2d86efa508e8e75c033c8a3fed461a8cad2d96"
   },
   "compilationOptions": {
     "defines": [
@@ -60,12 +60,14 @@
           "Serilog.Sinks.MongoDB": "3.1.0",
           "Serilog.Sinks.RollingFile": "3.1.0",
           "Serilog.Sinks.Seq": "3.0.0-dev-00069",
+          "StyleCop.Analyzers": "1.0.2",
           "System.Private.ServiceModel": "4.1.0",
           "System.ServiceModel.Duplex": "4.0.1",
           "System.ServiceModel.Http": "4.1.0",
           "System.ServiceModel.NetTcp": "4.1.0",
           "System.ServiceModel.Primitives": "4.1.0",
-          "System.ServiceModel.Security": "4.0.1"
+          "System.ServiceModel.Security": "4.0.1",
+          "tslint": "5.0.0"
         },
         "runtime": {
           "OmniPot.dll": {}
@@ -2079,6 +2081,7 @@
           "lib/netstandard1.3/Serilog.Sinks.Seq.dll": {}
         }
       },
+      "stylecop.analyzers/1.0.2": {},
       "system.collections.nongeneric/4.0.1": {
         "dependencies": {
           "System.Diagnostics.Debug": "4.0.11",
@@ -2694,6 +2697,7 @@
           "ref/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "tslint/5.0.0": {},
       "omnipot.common/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity": "1.0.2",
@@ -5162,7 +5166,7 @@
     "portable.bouncycastle/1.8.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bKqC2Me9ukybNYTBhlYd2sJ6j2kRV7SgB+JfiP2GueYq6QdM4Ym6PYV5eyrqb6KViOyd3zqQfJp0o6UW5ZG+GQ==",
+      "sha512": "sha512-rv/VIvOMhZaZ6iSyKeJiwrYWq4J05Td59VekLxmLD+nR0liHFLPtkUtPfJL2sMaVghy1PpF/HjSvvcoNZQtlGA==",
       "path": "portable.bouncycastle/1.8.1.1",
       "hashPath": "portable.bouncycastle.1.8.1.1.nupkg.sha512"
     },
@@ -5249,6 +5253,13 @@
       "sha512": "sha512-uCazUau3S5bXFFy5ek8hZkFhuHwiq/4/8Mj1uZFheHiNQTLp6yQ2E68bBhhDafYNcLBeFip49KAXC0gVkk4wfg==",
       "path": "serilog.sinks.seq/3.0.0-dev-00069",
       "hashPath": "serilog.sinks.seq.3.0.0-dev-00069.nupkg.sha512"
+    },
+    "stylecop.analyzers/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3xD87lafnVhsSEtJKk50G7FGutvaXkFz4XrrLrxnk/DhZU42dnCGWUsvKuBv4mTS0XdIgTY88tLhxW/8Vi3Pow==",
+      "path": "stylecop.analyzers/1.0.2",
+      "hashPath": "stylecop.analyzers.1.0.2.nupkg.sha512"
     },
     "system.collections.nongeneric/4.0.1": {
       "type": "package",
@@ -5431,6 +5442,13 @@
       "sha512": "sha512-FrazwwqfIXTfq23mfv4zH+BjqkSFNaNFBtjzu3I9NRmG8EELYyrv/fJnttCIwRMFRR/YKXF1hmsMmMEnl55HGw==",
       "path": "system.xml.xmlserializer/4.0.11",
       "hashPath": "system.xml.xmlserializer.4.0.11.nupkg.sha512"
+    },
+    "tslint/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vqoEKdN6yoskLxtoWBNSFg5v/vGP9nTeuBORkoTw6nkUR0ZY+LJCXuDfOfBhIT9gJ7qfwNyDOJhuVD81YgNWUw==",
+      "path": "tslint/5.0.0",
+      "hashPath": "tslint.5.0.0.nupkg.sha512"
     },
     "omnipot.common/1.0.0": {
       "type": "project",
